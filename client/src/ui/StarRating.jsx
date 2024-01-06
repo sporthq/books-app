@@ -1,16 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const containterStyle = {
 	display: 'flex',
 	alignItems: 'center',
 	gap: '16px',
 	marginTop: 'auto',
+	marginLeft: '-2px',
 };
 
 const starContainerStyle = {
 	display: 'flex',
 };
+
 
 export default function StarRating({
 	maxRating = 10,
@@ -20,13 +22,22 @@ export default function StarRating({
 	message = [],
 	defaultRating = 0,
 	onSetRating,
+	reviews,
+	toFixed,
+	currentRating,
+	
 }) {
-	const [rating, setRating] = useState(defaultRating);
+	const [rating, setRating] = useState(reviews?.rating || defaultRating);
 	const [tempRating, setTempRating] = useState(0);
 
+	useEffect(() => {
+		setRating(reviews?.rating || defaultRating);
+	}, [defaultRating, reviews?.rating]);
 	function handleRating(rating) {
-		setRating(rating);
-		onSetRating(rating);
+		if (!reviews) {
+			setRating(rating);
+			onSetRating(rating);
+		}
 	}
 
 	const textStyle = {
@@ -44,26 +55,34 @@ export default function StarRating({
 						key={i}
 						onRate={() => handleRating(i + 1)}
 						full={tempRating ? tempRating >= i + 1 : rating >= i + 1}
-						onHoverIn={() => setTempRating(i + 1)}
+						onHoverIn={() => {
+							!reviews && setTempRating(i + 1);
+						}}
 						onHoverOut={() => setTempRating(0)}
 						color={color}
 						size={size}
+						readOnly={!!reviews}
+						
 					></Star>
 				))}
 			</div>
 			<p style={textStyle}>
-				{message.length === maxRating ? message[tempRating ? tempRating - 1 : rating - 1] : tempRating || rating || ''}
+				{rating > 0
+					? message.length === maxRating
+						? message[tempRating ? tempRating - 1 : rating - 1]
+						: tempRating || (toFixed ? Number(rating).toFixed(2) : rating) || ''
+					: ''}
 			</p>
 		</div>
 	);
 }
 
-function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
+function Star({ onRate, full, onHoverIn, onHoverOut, color, size, readOnly }) {
 	const starStyle = {
 		width: `${size}px`,
 		height: `${size}px`,
 		display: 'block',
-		cursor: 'pointer',
+		cursor: readOnly ? 'default' : 'pointer',
 	};
 
 	return (

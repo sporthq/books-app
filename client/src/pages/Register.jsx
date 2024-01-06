@@ -40,7 +40,7 @@ function Register() {
 			</Logo>
 
 			<Heading style={{ textAlign: 'center' }} as='h2'>
-				Załóż konto w bookings rate 👇
+				Załóż konto w bookings rate <span style={{ color: 'yellow' }}> 👇</span>
 			</Heading>
 			<RegisterForm />
 		</LoginLayout>

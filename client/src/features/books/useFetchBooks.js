@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getAllBooks } from '../../services/books/apiBooks';
 
 export function useFetchBooks() {
+	
 	const {
 		isLoading,
 		data: books,
@@ -9,6 +10,7 @@ export function useFetchBooks() {
 	} = useQuery({
 		queryKey: ['books'],
 		queryFn: getAllBooks,
+		
 	});
 
 	return { isLoading, books, errFetchBooks };

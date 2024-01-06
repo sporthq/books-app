@@ -3,8 +3,17 @@ import { Link } from 'react-router-dom';
 
 import styled, { keyframes } from 'styled-components';
 
-import { BookImg, BookAuthor, BookTitle, DataPublished, WithoutImg } from '../../features/books/BookItem';
-import { TextBox } from './BookItem';
+import {
+	
+	BookAuthor,
+	BookTitle,
+	DataPublished,
+	WithoutImg,
+	TextBox,
+	AmountReview,
+	LazyLoadImageStyled,
+} from '../../ui/CardBookComponents';
+
 import StarRating from '../../ui/StarRating';
 
 const fadeIn = keyframes`
@@ -30,13 +39,25 @@ const BookListItem = styled.li`
 	animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
+const StyledBoxLinkStar = styled.div`
+	margin-top: auto;
+`;
+
 export default function AddedBookListItem({ book }) {
 	return (
 		<BookListItem>
 			<Link to={`/books/${book._id}`}>
 				{book?.image ? (
 					<BoxImage>
-						<BookImg src={book?.image}></BookImg>
+						<LazyLoadImageStyled
+							height={170}
+							width={120}
+							effect='blur'
+							loading='lazy'
+							src={book?.image}
+							alt={`ksiązka ${book?.title}`}
+							placeholderSrc='https://placehold.co/120x170'
+						></LazyLoadImageStyled>
 					</BoxImage>
 				) : (
 					<WithoutImg>
@@ -45,10 +66,25 @@ export default function AddedBookListItem({ book }) {
 				)}
 			</Link>
 
-			<TextBox style={{ justifyContent: '' }}>
+			<TextBox>
 				<BookTitle>{book?.title}</BookTitle>
 				<BookAuthor>{book?.author}</BookAuthor>
-				<StarRating color='var(--accent-150)' size='20' maxRating='6'></StarRating>
+				<StyledBoxLinkStar>
+					<Link to={`/books/${book._id}`}>
+						{console.log(book?.rating)}
+						<StarRating
+							defaultRating={book?.rating}
+							reviews={true}
+							toFixed={true}
+							color='var(--accent-150)'
+							size='21'
+							maxRating='6'
+						></StarRating>
+						<AmountReview>
+							{book?.numOfReviews <= 0 ? 'Napisz recenzję!' : `Ilość recenzji: [${book?.numOfReviews}] `}
+						</AmountReview>
+					</Link>
+				</StyledBoxLinkStar>
 				<DataPublished>{book?.publishedDate}</DataPublished>
 			</TextBox>
 		</BookListItem>

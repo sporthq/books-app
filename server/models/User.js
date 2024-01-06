@@ -1,7 +1,14 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import { reviewSchema } from './Books.js';
+
 const userSchema = new mongoose.Schema(
 	{
+		name: {
+			type: String,
+			required: true,
+			unique: true,
+		},
 		email: {
 			type: String,
 			required: true,
@@ -30,6 +37,8 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			default: undefined,
 		},
+
+		reviews: [reviewSchema],
 	},
 	{ timestamps: true }
 );

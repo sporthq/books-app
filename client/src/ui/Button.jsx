@@ -31,7 +31,7 @@ const variations = {
 	`,
 	secondary: css`
 		color: var(--text-100);
-		background-color: var(--color-grey-50);
+		background-color: var(--color-grey-0);
 
 		&:hover {
 			text-decoration: underline;
@@ -47,11 +47,11 @@ const variations = {
 		}
 	`,
 	danger: css`
-		color: var(--color-red-100);
-		background-color: var(--color-red-700);
+		color: var(--red-100);
+		background-color: var(--red-700);
 
 		&:hover {
-			background-color: var(--color-red-800);
+			background-color: var(--red-800);
 		}
 	`,
 };

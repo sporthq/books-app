@@ -21,6 +21,11 @@ const GlobalStyles = styled.createGlobalStyle`
 		--grey-900: #212529;
 		--green-600: #37b24d;
 		--green-900: #2b8a3e;
+		--red-100: #fee2e2;
+		--red-700: #b91c1c;
+		--red-800: #991b1b;
+
+		--backdrop-color: rgba(0, 0, 0, 0.3);
 		// dark
 		/*    --primary-100:#1F3A5F;
     --primary-200:#4d648d;
@@ -73,11 +78,22 @@ const GlobalStyles = styled.createGlobalStyle`
 		font-size: 1.6rem;
 	}
 
-	@media (max-width: 100em) {
+	@media only screen and (max-width: 100em) {
 		body {
 			max-width: 120rem;
 		}
 	}
+	@media only screen and (max-width: 75em) {
+		body {
+			max-width: 100rem;
+		}
+	}
+	@media only screen and (max-width: 63em) {
+		/* body {
+			max-width: 90rem;
+		} */
+	}
+
 	input,
 	button,
 	textarea,

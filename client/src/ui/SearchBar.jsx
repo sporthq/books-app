@@ -2,6 +2,8 @@
 import styled from 'styled-components';
 import Input from './Input';
 import { CiSearch } from 'react-icons/ci';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const BoxSearchBar = styled.div`
 	flex-grow: 1;
@@ -12,10 +14,26 @@ const IconSearch = styled(CiSearch)`
 	fill: var(--accent-200);
 `;
 
-export default function SearchBar({ setQuery }) {
+export default function SearchBar({ setQuery, query }) {
+	const { pathname } = useLocation();
+	const isHomePage = pathname === '/' || pathname === '/dashboard' || pathname === '/all-books';
+
+	const handleChange = (e) => {
+		setQuery(e.target.value);
+	};
+
+	useEffect(() => {
+		if (!isHomePage) {
+			setQuery('');
+		}
+	}, [isHomePage, setQuery]);
+	useEffect(() => {
+		setQuery('');
+	}, [pathname, setQuery]);
+
 	return (
 		<BoxSearchBar>
-			<Input onChange={(e) => setQuery(e.target.value)} placeholder='Szukaj książki...' />
+			<Input disabled={!isHomePage} value={query} onChange={(e) => handleChange(e)} placeholder='Szukaj książki...' />
 			<IconSearch />
 		</BoxSearchBar>
 	);

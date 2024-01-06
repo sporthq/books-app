@@ -15,14 +15,7 @@ import useLogin from '../features/authentication/useLogin';
 import { googleLogin } from '../services/authentication/apiUsers';
 import toast from 'react-hot-toast';
 
-const Form = styled.form`
-	display: flex;
-	flex-direction: column;
-
-	gap: 2.4rem;
-	padding: 2.4rem 4rem;
-	box-shadow: var(--shadow-md);
-`;
+import Form from './Form';
 
 const LinksBox = styled.div`
 	display: flex;
@@ -30,16 +23,16 @@ const LinksBox = styled.div`
 `;
 
 const GoogleIcon = styled(FcGoogle)`
-	
 	font-size: 2.05rem;
 `;
 const FormLogin = () => {
 	const navigate = useNavigate();
 	const { loginUser, isPending, error } = useLogin();
 	const { register, handleSubmit, formState } = useForm({
+		// todo usuń default values
 		defaultValues: {
-			email: 'sporthq@gmail.com',
-			password: '123',
+			email: 'nowak.sebastian99@wp.pl',
+			password: '1234',
 		},
 	});
 
@@ -48,6 +41,7 @@ const FormLogin = () => {
 	function onSubmit(data) {
 		const { email, password } = data;
 
+		console.log(email, password);
 		loginUser({ email, password });
 	}
 	const handleGoogleLogin = useGoogleLogin({
@@ -61,8 +55,9 @@ const FormLogin = () => {
 
 				console.log(userInfo);
 
-				const { sub, email, picture } = userInfo;
-				await googleLogin(sub, email, picture);
+				const { sub, email, name, picture } = userInfo;
+				console.log(sub, email, name, picture );
+				await googleLogin(sub, email, name, picture);
 				toast.success('Logowanie zakończone pomyślnie');
 				navigate('/');
 				// Dodaj kod do obsługi uzyskanych danych, na przykład zapisz je w stanie komponentu.

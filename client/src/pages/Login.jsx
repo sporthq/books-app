@@ -19,10 +19,9 @@ const LoginLayout = styled.main`
 `;
 
 function Login() {
-	
 	const user = JSON.parse(localStorage.getItem('userInfo'));
 	const navigate = useNavigate();
-	
+
 	useEffect(
 		function () {
 			if (user) {
@@ -41,7 +40,7 @@ function Login() {
 			</Logo>
 
 			<Heading style={{ textAlign: 'center' }} as='h2'>
-				Zaloguj się do swojego konta 👇
+				Zaloguj się do swojego konta <span style={{color:'yellow'}}> 👇</span>
 			</Heading>
 			<FormLogin />
 		</LoginLayout>

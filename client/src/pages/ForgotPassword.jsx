@@ -63,7 +63,7 @@ function EmailVerify() {
 			</Logo>
 
 			<Heading style={{ textAlign: 'center' }} as='h2'>
-				Odzyskaj swoje hasło 👇
+				Odzyskaj swoje hasło <span style={{ color: 'yellow' }}> 👇</span>
 			</Heading>
 
 			<Form onSubmit={handleSubmit(onSubmit)}>
