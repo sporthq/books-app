@@ -17,7 +17,7 @@ const fadeIn = keyframes`
   }
 `;
 const TopThreeBoxStyled = styled.div`
-	display: flex;
+	display: grid;
 	flex-direction: column;
 	grid-column: 1/-1;
 	margin-top: 7.2rem;
