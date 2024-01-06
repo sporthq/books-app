@@ -35,9 +35,10 @@ const RegisterForm = () => {
 	console.log(errors);
 
 	function onSubmit(data) {
-		const { email, password } = data;
+		const { name, email, password } = data;
 
-		registerUser({ email, password });
+		console.log(name);
+		registerUser({ name, email, password });
 	}
 	function onError(err) {
 		console.log(err);
@@ -53,6 +54,18 @@ const RegisterForm = () => {
 				''
 			)}
 			{error ? <ErrorMessage>{error.message}</ErrorMessage> : ''}
+			<LoginFormBox>
+				<label htmlFor='name'>Username</label>
+				<Input
+					$breadth='full'
+					id='name'
+					type='text'
+					{...register('name', {
+						required: 'Uzupłenij to pole!',
+					})}
+				/>
+				<ErrorMessage>{errors?.email?.message}</ErrorMessage>
+			</LoginFormBox>
 			<LoginFormBox>
 				<label htmlFor='email'>E-mail</label>
 				<Input

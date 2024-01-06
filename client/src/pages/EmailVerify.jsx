@@ -1,14 +1,14 @@
-import styled from 'styled-components';
-import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import Logo from '../ui/Logo';
-import Heading from './../ui/Heading';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import CompanyName from '../ui/CompanyName';
+import Logo from '../ui/Logo';
 import LogoTextBottom from '../ui/LogoTextBottom';
+import Heading from './../ui/Heading';
 
 import toast from 'react-hot-toast';
-import useVerifyEmail from './../features/authentication/useVerifyEmail';
 import MessageEmailVerify from '../ui/MessageEmailVerify';
+import useVerifyEmail from './../features/authentication/useVerifyEmail';
 
 const LoginLayout = styled.main`
 	display: grid;
@@ -44,7 +44,6 @@ function EmailVerify() {
 			</Heading>
 
 			<MessageEmailVerify isPending={isPending} error={error} />
-			
 		</LoginLayout>
 	);
 }

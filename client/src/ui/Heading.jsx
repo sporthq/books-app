@@ -1,6 +1,12 @@
 import styled, { css } from 'styled-components';
 
 const Heading = styled.h1`
+	line-height: 1.5;
+
+	// todo test
+	background-image: linear-gradient(to right, #00668c, #5eacd3);
+	background-clip: text;
+	color: transparent;
 	${(props) =>
 		props.as === 'h1' &&
 		css`
@@ -28,8 +34,12 @@ const Heading = styled.h1`
 			font-weight: 600;
 			text-align: center;
 		`}
-	 color: var(--accent-200);
-	line-height: 1.5;
+	${(props) =>
+		props.gradient === 'false' &&
+		css`
+			color: var(--accent-200);
+			background-image: none;
+		`}
 `;
 
 export default Heading;

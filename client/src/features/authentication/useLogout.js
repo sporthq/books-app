@@ -7,7 +7,6 @@ export function useLogout() {
 	}
 	const {
 		mutate: logout,
-		isError,
 		isPending,
 	} = useMutation({
 		mutationFn: logoutUser,
@@ -15,7 +14,7 @@ export function useLogout() {
 		onError: (err) => toast.error('Wystąpił nieoczekiwany błąd'),
 	});
 
-	return { logout };
+	return { logout, isPending };
 }
 // export default function UseLogout() {
 // 	localStorage.removeItem('userInfo');

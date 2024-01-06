@@ -1,43 +1,24 @@
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import GlobalStyles from '../styles/GlobalStyles';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 
-import GlobalStyles from '../styles/GlobalStyles';
-
 import Dashboard from './pages/Dashboard';
-import AppLayout from './ui/AppLayout';
-import SingleBook from './pages/SingleBook';
-import Login from './pages/Login';
-import Register from './pages/Register';
 import EmailVerify from './pages/EmailVerify';
 import ForgotPassword from './pages/ForgotPassword';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import ResetPassword from './pages/ResetPassword';
+import SingleBook from './pages/SingleBook';
+import UserProfile from './pages/UserProfile';
+
+import AppLayout from './ui/AppLayout';
+import AllBooks from './pages/AllBooks';
 
 function App() {
 	const googleClient = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-	console.log(googleClient);
-
-	// old v.
-	// const [googleClient, setGoogleClient] = useState(null);
-
-	// useEffect(() => {
-	// 	console.log('googleClient:', googleClient);
-	// 	const googleKey = async () => {
-	// 		try {
-	// 			const { data: googleId } = await axios.get('http://localhost:5000/api/config/google');
-
-	// 			setGoogleClient(googleId);
-	// 		} catch (error) {
-	// 			console.error('Błąd podczas pobierania klucza Google:', error);
-	// 		}
-	// 	};
-
-	// 	googleKey();
-	// }, [googleClient]);
 
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -47,9 +28,6 @@ function App() {
 		},
 	});
 
-	// return !googleClient ? (
-	// 	<p>Loading</p>
-	// ) : (
 	return (
 		<GoogleOAuthProvider clientId={googleClient}>
 			<QueryClientProvider client={queryClient}>
@@ -61,6 +39,8 @@ function App() {
 							<Route index element={<Navigate replace to='dashboard' />} />
 							<Route path='dashboard' element={<Dashboard></Dashboard>} />
 							<Route path='books/:bookId' element={<SingleBook />}></Route>
+							<Route path='/user-profile/:userId' element={<UserProfile />}></Route>
+							<Route path='/all-books' element={<AllBooks />}></Route>
 						</Route>
 						<Route path='login' element={<Login />}></Route>
 						<Route path='register' element={<Register />}></Route>

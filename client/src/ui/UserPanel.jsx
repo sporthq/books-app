@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { HiArrowRightOnRectangle } from 'react-icons/hi2';
-
+import { VscPreview } from 'react-icons/vsc';
 import Button from '../ui/Button';
 import { useLogout } from '../features/authentication/useLogout';
+import { useEffect, useRef, useState } from 'react';
 
 const UserPanelBox = styled.div`
 	display: flex;
@@ -11,14 +12,21 @@ const UserPanelBox = styled.div`
 `;
 
 const UserInfo = styled.div`
+	position: relative;
 	display: flex;
+	align-items: center;
 	gap: 1.2rem;
 `;
 
 const UserImage = styled.img`
 	height: 3rem;
-
 	border-radius: 50%;
+	align-self: end;
+	transition: transform 0.3s;
+
+	&:hover {
+		transform: translateY(-2px);
+	}
 `;
 
 const ButtonLogout = styled.button`
@@ -33,21 +41,117 @@ const LogoutIcon = styled(HiArrowRightOnRectangle)`
 	font-size: 2.85rem;
 	color: var(--accent-200);
 `;
-export default function UserPanel() {
-	const user = JSON.parse(localStorage.getItem('userInfo'));
 
-	console.log(user?.googleImage);
+const LinkToProfile = styled.div`
+	position: relative;
+	display: flex;
+	cursor: pointer;
+`;
+
+const BoxMenu = styled.div`
+	position: absolute;
+	top: 130%;
+	right: 44%;
+	left: -500%;
+
+	padding: 0.5rem 2rem;
+	/* min-width: 200px; */
+	font-size: 1.45rem;
+	border: 1px solid var(--accent-200);
+	box-shadow: var(--shadow-md);
+	border-radius: var(--border-radius-tiny);
+	transition: background-color 0.3s;
+
+	&:hover {
+		background-color: var(--grey-0);
+	}
+
+	&:hover::before {
+		background-color: var(--accent-150);
+	}
+	&::before {
+		content: '';
+		position: absolute;
+		right: -5px;
+		top: -5px;
+		height: 10px;
+		width: 10px;
+		transform: rotate(45deg);
+		border-radius: 2.5px;
+		background-color: #fff;
+
+		border: 1px solid var(--accent-200);
+		transition: background-color 0.3s;
+
+		/* border: 1px solid var(--accent-150); */
+	}
+`;
+
+const BoxMenuListItem = styled.li``;
+
+const LinkToReview = styled(Link)`
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+	color: var(--accent-200);
+	font-weight: 500;
+`;
+
+const VscPreviewStyled = styled(VscPreview)`
+	margin-top: 0.1rem;
+`;
+export default function UserPanel() {
+	const [showMenu, setShowMenu] = useState(false);
+	const user = JSON.parse(localStorage.getItem('userInfo'));
+	const ref = useRef();
 	const { logout } = useLogout();
 	function handlerLogout() {
 		logout();
 	}
+
+	useEffect(() => {
+		function handleClick(e) {
+			if (ref.current && !ref.current.contains(e.target)) {
+				setShowMenu(false);
+			}
+		}
+		document.addEventListener('click', handleClick);
+
+		return () => document.removeEventListener('click', handleClick);
+	}, []);
 	return (
 		<>
 			{user ? (
 				<UserInfo>
-					<p>{user.email}</p>
-					<UserImage src={user?.googleImage} alt='' />
-					<Link>
+					<p>{user?.name}</p>
+					<LinkToProfile
+						ref={ref}
+						onClick={() => {
+							setShowMenu(!showMenu);
+							close();
+						}}
+					>
+						<UserImage
+							src={user.googleImage || '/default-user.jpg'}
+							alt={`avatar of ${user?.name}`}
+							onError={(e) => {
+								e.target.src = '/default-user.jpg';
+							}}
+						/>
+						{showMenu && (
+							<BoxMenu>
+								<ul>
+									<BoxMenuListItem>
+										<LinkToReview to={`/user-profile/${user?._id}`}>
+											<VscPreviewStyled />
+											Twoje recenzje
+										</LinkToReview>
+									</BoxMenuListItem>
+								</ul>
+							</BoxMenu>
+						)}
+					</LinkToProfile>
+					<Link to='/'>
 						<ButtonLogout onClick={handlerLogout}>
 							<LogoutIcon />
 						</ButtonLogout>

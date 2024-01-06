@@ -14,7 +14,7 @@ module.exports = {
 	rules: {
 		'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 		'no-unused-vars': ['warn'], // Zmieniono na warn zamiast error
-		"indent": ["error", "tab"],
+		"indent": 'off',
 		"no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
 	},
 };

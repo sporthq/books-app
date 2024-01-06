@@ -1,11 +1,12 @@
+import crypto from 'crypto';
 import express from 'express';
-import User from '../models/User.js';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
-import { sendVerificationEmail } from '../middleware/sendVerificationEmail.js';
 import { sendPasswordResetEmail } from '../middleware/sendPasswordResetEmail.js';
+import { sendVerificationEmail } from '../middleware/sendVerificationEmail.js';
 import Token from '../models/Token.js';
+import User from '../models/User.js';
+import Books from '../models/Books.js';
 const userRoute = express.Router();
 
 // TODO zmień expiriesIn
@@ -22,64 +23,71 @@ const login = asyncHandler(async (req, res) => {
 		res.status(401).json({ message: 'Podany użytkownik nie istnieje' });
 	}
 
-	if (user && user.googleId){
+	if (user && user.googleId) {
 		res.status(401).json({ message: 'Cos poszło nie tak, spróbuj zalogować sie przez konto Google.' });
 	}
-		if (user && (await user.matchPassword(password))) {
-			let verificationToken = await Token.findOne({ userId: user._id });
-			if (verificationToken && verificationToken.expiresAt < Date.now()) {
-				// Usunięcie wygasłego tokenu z bazy danych
-				await Token.deleteOne({ token: verificationToken.token });
+	if (user && (await user.matchPassword(password))) {
+		let verificationToken = await Token.findOne({ userId: user._id });
+		if (verificationToken && verificationToken.expiresAt < Date.now()) {
+			// Usunięcie wygasłego tokenu z bazy danych
+			await Token.deleteOne({ token: verificationToken.token });
 
-				// Sprawdzenie, czy usunięto token
-				verificationToken = await Token.findOne({ userId: user._id });
-				if (!verificationToken) {
-					// Usunięcie użytkownika
-					await User.deleteOne({ _id: user._id });
+			// Sprawdzenie, czy usunięto token
+			verificationToken = await Token.findOne({ userId: user._id });
+			if (!verificationToken) {
+				// Usunięcie użytkownika
+				await User.deleteOne({ _id: user._id });
 
-					return res.status(400).json({
-						message: 'Twój token wygasł. Załóż nowe konto.',
-						createNewAccount: true,
-					});
-				}
+				return res.status(400).json({
+					message: 'Twój token wygasł. Załóż nowe konto.',
+					createNewAccount: true,
+				});
 			}
-			user.firstLogin = false;
-			if (!user.active) {
-				return res
-					.status(401)
-					.json({ message: 'Konto nie zostało zweryfikowane. Sprawdź e-mail aby dokończyć rejestrację!' });
-			}
-
-			await user.save();
-			res.json({
-				_id: user._id,
-				email: user.email,
-				googleImage: user.googleImage,
-				googleId: user.googleId,
-				token: genToken(user._id, 24 * 60 * 60),
-				active: user.active,
-				firstLogin: user.firstLogin,
-				created: user.createdAt,
-			});
-		} else {
-			res.status(401).json({ message: 'Błędny email lub hasło' });
 		}
+		user.firstLogin = false;
+		if (!user.active) {
+			return res
+				.status(401)
+				.json({ message: 'Konto nie zostało zweryfikowane. Sprawdź e-mail aby dokończyć rejestrację!' });
+		}
+
+		await user.save();
+
+		res.json({
+			_id: user._id,
+			name: user.name,
+			email: user.email,
+			googleImage: user.googleImage,
+			googleId: user.googleId,
+			reviews: user.reviews,
+			token: genToken(user._id, 24 * 60 * 60),
+			active: user.active,
+			firstLogin: user.firstLogin,
+			created: user.createdAt,
+		});
+	} else {
+		res.status(401).json({ message: 'Błędny email lub hasło' });
+	}
 });
 
 // register
 const registerUser = asyncHandler(async (req, res) => {
-	const { email, password } = req.body;
-	const userExist = await User.findOne({ email });
+	const { name, email, password } = req.body;
+	const userExistEmail = await User.findOne({ email });
+	const userExistName = await User.findOne({ name });
 
-	if (userExist) {
-		res.status(400).json({ message: 'Ten e-mail już istnieje w naszej bazie danych' });
+	if (userExistEmail) {
+		res.status(400).json({ message: 'Ten e-mail już istnieje w naszej bazie danych.' });
+	}
+	if (userExistName) {
+		res.status(400).json({ message: `Nazwa ${name} jest już zajęta.` });
 	}
 
-	if (userExist?.active === false) {
-		res.status(400).json({ message: 'Sprawdź swój e-mail i aktywuj swoje konto' });
+	if (userExistEmail?.active === false) {
+		res.status(400).json({ message: 'Sprawdź swój e-mail i aktywuj swoje konto!' });
 	}
 
-	const user = await User.create({ email, password });
+	const user = await User.create({ name, email, password });
 
 	const confirmToken = crypto.randomBytes(32).toString('hex') + user._id;
 
@@ -98,10 +106,12 @@ const registerUser = asyncHandler(async (req, res) => {
 	if (user) {
 		res.status(201).json({
 			_id: user._id,
+			name: user.name,
 			email: user.email,
 			googleImage: user.googleImage,
 			googleId: user.googleId,
 			token: newToken,
+			reviews: user.reviews,
 			active: user.active,
 			firstLogin: user.firstLogin,
 			created: user.createdAt,
@@ -190,6 +200,7 @@ const passwordReset = asyncHandler(async (req, res) => {
 
 	try {
 		const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+
 		const user = await User.findById(decoded.id);
 		if (user) {
 			user.password = req.body.password;
@@ -211,33 +222,49 @@ const passwordReset = asyncHandler(async (req, res) => {
 
 // google login
 const googleLogin = asyncHandler(async (req, res) => {
-	const { googleId, email, googleImage } = req.body;
+	console.log(req.body);
+	const { googleId, email, name, googleImage } = req.body;
+
 	try {
 		const user = await User.findOne({ googleId });
-		if (user) {
 
+		if (user) {
+			// user.loginMethod = 'google';
 			user.firstLogin = false;
+			console.log('IF uesr existi' + user);
 			await user.save();
 			res.json({
 				_id: user._id,
+				name: user.name,
 				email: user.email,
 				googleImage: user.googleImage,
 				googleId: user.googleId,
 				firstLogin: user.firstLogin,
+				reviews: user.reviews,
 				// token: genToken(user._id, 24 * 60 * 60),
 				active: true,
 				createdAt: user.createdAt,
 			});
 		} else {
-	
-			const newUser = await User.create({ googleId, email, googleImage });
-			
+			console.log('eqwqweuiqwuieqwue');
+			const newUser = await User.create({
+				googleId,
+				email,
+				name,
+				googleImage,
+				// loginMethod: 'google'
+			});
+
+			console.log('testttttt');
+			console.log(newUser);
 			res.json({
 				_id: newUser._id,
+				name: newUser.name,
 				email: newUser.email,
 				googleImage: newUser.googleImage,
 				googleId: newUser.googleId,
 				firstLogin: newUser.firstLogin,
+				reviews: newUser.reviews,
 				token: genToken(newUser._id, 24 * 60 * 60),
 				active: newUser.active,
 				createdAt: newUser.createdAt,
@@ -248,10 +275,74 @@ const googleLogin = asyncHandler(async (req, res) => {
 	}
 });
 
+const getUserReviews = async (req, res) => {
+	try {
+		const userId = req.params.userId;
+
+		const user = await User.findById(userId).populate('reviews.bookInfo');
+		const page = parseInt(req.query.page);
+
+		const PAGE_SIZE = 6;
+		if (!user) {
+			res.status(404).json({ message: 'Użytkownik nie znaleziony.' });
+		}
+
+		console.log('user' + user);
+		const filteredReviews = user.reviews.map((review) => ({
+			id: review._id,
+			userId: user._id,
+			amountReviews: user.reviews.length,
+			bookInfo: review.bookInfo, // Include book information in the review
+			contentReview: review.contentReview,
+			rating: review.rating,
+		}));
+
+		const userReview = filteredReviews.reverse().slice(PAGE_SIZE * (page - 1), PAGE_SIZE * page);
+		res.json(userReview);
+	} catch (error) {
+		res.status(500).json({ message: 'Nieoczekiwany bład, spróbuj ponownie.' });
+	}
+};
+
+
+
+const deleteReview = async (req, res) => {
+	try {
+		const userId = req.params.userId;
+		const reviewId = req.params.reviewId;
+
+		const user = await User.findById(userId);
+		if (!user) {
+			return res.status(404).json({ message: 'Użytkownik nie znaleziony.' });
+		}
+
+		const reviewToDelete = user.reviews.find((review) => review._id.toString() === reviewId);
+		
+		if (!reviewToDelete) {
+			return res.status(404).json({ message: 'Recenzja nie istnieje.' });
+		}
+
+		const bookId = reviewToDelete.bookInfo;
+
+		const book = await Books.findById(bookId);
+
+		await Books.updateOne({ _id: bookId }, { $pull: { reviews: { _id: reviewId } } });
+		await User.updateOne({ _id: userId }, { $pull: { reviews: { _id: reviewId } } });
+
+		res.status(200).json({ message: 'Recenzja usunięta pomyślnie.' });
+	} catch (error) {
+		console.error('Błąd podczas usuwania recenzji:', error);
+		res.status(500).json({ message: 'Coś poszło nie tak, spróbuj ponownie' });
+	}
+};
+
 userRoute.route('/login').post(login);
 userRoute.route('/register').post(registerUser);
 userRoute.route('/verify-email/:token').get(verifyEmail);
 userRoute.route('/password-reset-request').post(passwordResetRequest);
 userRoute.route('/password-reset').post(passwordReset);
 userRoute.route('/google-login').post(googleLogin);
+userRoute.route('/:userId').get(getUserReviews);
+userRoute.route('/:userId/:reviewId').delete(deleteReview);
+
 export default userRoute;

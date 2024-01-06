@@ -2,76 +2,36 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { RotatingLines } from 'react-loader-spinner';
 import { useFetchBooks } from './useFetchBooks';
 import { useAddNewBook } from './useAddNewBook';
 import Button from '../../ui/Button';
 import SpinnerMini from '../../ui/SpinnrerMini';
 
+import {
+	BookAuthor,
+	BookTitle,
+	DataPublished,
+	TextBox,
+	WithoutImg,
+	LazyLoadImageStyled,
+} from '../../ui/CardBookComponents';
 const BookListItem = styled.li`
 	display: flex;
 	justify-self: left;
 `;
 
-const BookImg = styled.img`
-	/* min-width: 100%;
-	height: 100%; */
-
-	// changes
-	width: 12rem;
-	height: 17rem;
-	object-fit: cover;
-	opacity: 1;
-	transition: opacity 0.3s ease-in-out, transform .3s ease-in-out;
-
-	&:hover {
-		transform: perspective(465px) rotateX(0) rotateY(-10deg);
-		opacity: .8;
-	}
-`;
-const WithoutImg = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 17rem;
-	width: 12rem;
-	border: 2px solid var(--grey-600);
-	border-radius: 4px;
-`;
-const TextBox = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	padding: 0.35rem 0;
-	gap: 0.25rem;
-	max-height: 100%;
-`;
-const BookTitle = styled.p`
-	font-size: 1.8rem;
-`;
-const BookAuthor = styled.p`
-	color: var(--grey-600);
-	font-weight: bold;
-`;
-
-const DataPublished = styled.p`
-	align-self: start;
-	margin-top: auto;
-	font-size: 1.4rem;
-`;
 export default function BookItem({ books }) {
 	const { mutate, isPending } = useAddNewBook();
 	const [addingIndex, setAddingIndex] = useState(null);
 	const { books: booksList, error } = useFetchBooks();
 
-	
 	function handleAddBook(book, index) {
 		const newBookData = {
 			title: book?.title ? book?.title : '',
 			author: book?.author_name ? book.author_name.slice(0, 4).join(', ') : 'Nieznany',
-			publishedDate: Array.isArray(book?.publish_date) ? book?.publish_date?.[0] : '',
+			publishedDate: Array.isArray(book?.publish_date) ? book?.publish_date?.[0] : 'Nieznana',
 			image: book?.cover_i ? `https://covers.openlibrary.org/b/id/${book?.cover_i}-M.jpg` : '',
-			reviews: {},
+			// reviews: {},
 			numOfReviews: 0,
 			rating: 0,
 		};
@@ -104,12 +64,16 @@ export default function BookItem({ books }) {
 		return books.slice(0, 6).map((book, index) => (
 			<BookListItem key={index}>
 				<div style={{ display: 'flex', gap: '1.2rem', maxHeight: '17rem' }}>
-					{/* <div style={{ width: '12rem', height: 'auto' }}> */}
 					<div>
 						{book?.cover_i ? (
-							<BookImg
+							<LazyLoadImageStyled
 								src={`https://covers.openlibrary.org/b/id/${book?.cover_i}-M.jpg`}
+								height={170}
+								width={120}
+								effect='blur'
 								alt={`Okładka książki ${book?.title}`}
+								loading='lazy'
+								placeholderSrc='https://placehold.co/120x170'
 							/>
 						) : (
 							<WithoutImg>
@@ -144,5 +108,3 @@ export default function BookItem({ books }) {
 			</BookListItem>
 		));
 }
-
-export { BookImg, BookAuthor, BookTitle, DataPublished, TextBox, WithoutImg };
