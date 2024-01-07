@@ -1,14 +1,14 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import connectToDB from './db.js';
+import connectToDB from '../db.js';
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
 
 // routes
-import booksRoutes from './routes/booksRoutes.js';
-import userRoutes from './routes/userRoutes.js';
+import booksRoutes from '../routes/booksRoutes.js';
+import userRoutes from '../routes/userRoutes.js';
 connectToDB();
 const app = express();
 app.use(express.json());

@@ -2,11 +2,11 @@
 	"name": "books-app",
 	"version": "1.0.0",
 	"description": "",
-	"main": "server.js",
+	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"start": "node server/server.js",
-		"server": "nodemon node server/server.js",
+		"start": "node server/api/index.js",
+		"server": "nodemon node server/api/index.js",
 		"client": "npm run dev --prefix client",
 		"build": "cd client && npm install && npm run build",
 		"app": "concurrently npm \"npm run server\" \"npm run client\""
