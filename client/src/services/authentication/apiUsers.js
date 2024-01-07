@@ -129,7 +129,7 @@ export const getUserReviewsFromDB = async (userId, pageNumber) => {
 	}
 };
 
-export const deleteUserReview = async ({ userId, reviewId} ) => {
+export const deleteUserReview = async ({ userId, reviewId }) => {
 	try {
 		await axios.delete(`${baseURL}/api/users/${userId}/${reviewId} `);
 	} catch (error) {
@@ -142,3 +142,4 @@ export const deleteUserReview = async ({ userId, reviewId} ) => {
 		);
 	}
 };
+

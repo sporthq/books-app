@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react';
-import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
+import { useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import Reviews from '../features/reviews/Reviews';
 import { useAddReview } from '../features/reviews/useAddReview';
-import { getAllReviews } from '../services/books/apiBooks';
+import { useFetchSingleBook } from './../features/books/useFetchSignleBook';
+
 import BackToHome from '../ui/BackToHome';
 import Button from '../ui/Button';
 import {
@@ -23,7 +24,6 @@ import Loader from '../ui/Loader';
 import SpinnerMini from '../ui/SpinnrerMini';
 import StarRating from '../ui/StarRating';
 import TextArea from '../ui/TextArea';
-import { useFetchSingleBook } from './../features/books/useFetchSignleBook';
 
 const fadeIn = keyframes`
   from {
@@ -118,7 +118,7 @@ export default function SingleBook() {
 	const user = JSON.parse(localStorage.getItem('userInfo'));
 
 	const { singleBook, isLoading, error } = useFetchSingleBook();
-	const { addReview, isPending, errorAddReview } = useAddReview();
+	const { addReview, isPending } = useAddReview();
 
 	const userLeaveReview = singleBook?.reviews?.some((review) => review.user === user?._id);
 
@@ -149,8 +149,8 @@ export default function SingleBook() {
 			toast.error('Musisz być zalogowany, aby dodawac recenzje');
 		}
 	};
-	const data = getAllReviews(bookId);
-	console.log(data);
+
+
 	return (
 		<>
 			<SingleBookContainer>

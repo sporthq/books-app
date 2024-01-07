@@ -1,11 +1,13 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { HiArrowRightOnRectangle } from 'react-icons/hi2';
-import { VscPreview } from 'react-icons/vsc';
-import Button from '../ui/Button';
-import { useLogout } from '../features/authentication/useLogout';
 import { useEffect, useRef, useState } from 'react';
 import { CgMenuRight } from 'react-icons/cg';
+import { HiArrowRightOnRectangle } from 'react-icons/hi2';
+import { VscPreview } from 'react-icons/vsc';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { useLogout } from '../features/authentication/useLogout';
+import Button from '../ui/Button';
+
+
 const UserPanelBox = styled.div`
 	display: flex;
 	gap: 1rem;
@@ -166,6 +168,7 @@ const MobileLink = styled(Link)`
 export default function UserPanel() {
 	const [showMenu, setShowMenu] = useState(false);
 	const [showMenuMobile, setShowMenuMobile] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false); 
 	const user = JSON.parse(localStorage.getItem('userInfo'));
 	const ref = useRef();
 	const mobileRef = useRef(null);
@@ -197,9 +200,10 @@ export default function UserPanel() {
 		return () => document.removeEventListener('click', handleClick);
 	}, []);
 
+	
 	return (
 		<>
-			{user ? (
+			{user || isLoggedIn ? (
 				<UserInfo>
 					<UserName>{user?.name}</UserName>
 					<LinkToProfile

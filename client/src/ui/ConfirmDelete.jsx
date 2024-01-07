@@ -19,13 +19,28 @@ const StyledConfirmDelete = styled.div`
 		justify-content: flex-end;
 		gap: 1.2rem;
 	}
+
+	@media only screen and (max-width: 48em) {
+		max-width: 26rem;
+	}
 `;
+
+const HeadingStyled = styled(Heading)`
+	@media only screen and (max-width: 48em) {
+		font-size: 1.6rem;
+	}
+`
+const P = styled.p`
+	@media only screen and (max-width: 48em) {
+		font-size: 1.2rem;
+	}
+`
 
 function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
 	return (
 		<StyledConfirmDelete>
-			<Heading as='h2'>Usuń {resourceName}</Heading>
-			<p>Jesteś pewny, że chcesz usunąć tę {resourceName}?</p>
+			<HeadingStyled as='h2'>Usuń {resourceName}</HeadingStyled>
+			<P>Jesteś pewny, że chcesz usunąć tę {resourceName}?</P>
 
 			<div>
 				<Button $variations='secondary' onClick={onCloseModal} disabled={disabled}>

@@ -95,7 +95,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		userId: user._id,
 		token: confirmToken,
 		createdAt: Date.now(),
-		expiresAt: Date.now() + 72 * 60 * 60 * 1000, // dodajemy 24 godziny do aktualnego czasu
+		expiresAt: Date.now() + 24 * 60 * 60 * 1000, // dodajemy 24 godziny do aktualnego czasu
 	});
 
 	await token.save();
@@ -118,7 +118,6 @@ const registerUser = asyncHandler(async (req, res) => {
 		});
 	} else {
 		res.status(400).json({ message: `Coś poszło nie tak, spróbuj ponownie.` });
-		// throw new Error('Coś poszło nie tak, spróbuj ponownie.');
 	}
 });
 
@@ -168,11 +167,8 @@ const verifyEmail = asyncHandler(async (req, res) => {
 	// Uaktualnienie statusu weryfikacji użytkownika
 	user.active = true;
 	await user.save();
-	// verificationToken.expiresAt = Date.now() + 24 * 60 * 60 * 1000;
-	// await verificationToken.save();
 
 	// Usunięcie tokenu weryfikacyjnego z bazy danych
-	// todo skasuj token
 	await Token.deleteOne({ token: req.params.token });
 
 	res.status(200).json({ message: 'Twoje konto zostało zweryfikowane pomyślnie.' });
@@ -210,8 +206,6 @@ const passwordReset = asyncHandler(async (req, res) => {
 			res.status(404).json({ message: 'Nie znaleziono użytkownika o podanym adresie e-mail' });
 		}
 	} catch (error) {
-		// res.status(401).json({ message: 'Zmaiana hasła się nie powiodła, token wygasł.' });
-
 		if (error.name === 'TokenExpiredError') {
 			res.status(401).json({ message: 'Token wygasł. Spróbuj ponownie, zrestuj hasło ponownie!' });
 		} else {
@@ -222,14 +216,12 @@ const passwordReset = asyncHandler(async (req, res) => {
 
 // google login
 const googleLogin = asyncHandler(async (req, res) => {
-	console.log(req.body);
 	const { googleId, email, name, googleImage } = req.body;
 
 	try {
 		const user = await User.findOne({ googleId });
 
 		if (user) {
-			// user.loginMethod = 'google';
 			user.firstLogin = false;
 			console.log('IF uesr existi' + user);
 			await user.save();
@@ -241,7 +233,7 @@ const googleLogin = asyncHandler(async (req, res) => {
 				googleId: user.googleId,
 				firstLogin: user.firstLogin,
 				reviews: user.reviews,
-				// token: genToken(user._id, 24 * 60 * 60),
+
 				active: true,
 				createdAt: user.createdAt,
 			});
@@ -252,11 +244,8 @@ const googleLogin = asyncHandler(async (req, res) => {
 				email,
 				name,
 				googleImage,
-				// loginMethod: 'google'
 			});
 
-			console.log('testttttt');
-			console.log(newUser);
 			res.json({
 				_id: newUser._id,
 				name: newUser.name,
@@ -292,7 +281,7 @@ const getUserReviews = async (req, res) => {
 			id: review._id,
 			userId: user._id,
 			amountReviews: user.reviews.length,
-			bookInfo: review.bookInfo, // Include book information in the review
+			bookInfo: review.bookInfo,
 			contentReview: review.contentReview,
 			rating: review.rating,
 		}));
@@ -303,8 +292,6 @@ const getUserReviews = async (req, res) => {
 		res.status(500).json({ message: 'Nieoczekiwany bład, spróbuj ponownie.' });
 	}
 };
-
-
 
 const deleteReview = async (req, res) => {
 	try {
@@ -317,7 +304,7 @@ const deleteReview = async (req, res) => {
 		}
 
 		const reviewToDelete = user.reviews.find((review) => review._id.toString() === reviewId);
-		
+
 		if (!reviewToDelete) {
 			return res.status(404).json({ message: 'Recenzja nie istnieje.' });
 		}
@@ -336,6 +323,19 @@ const deleteReview = async (req, res) => {
 	}
 };
 
+// 	const { email } = req.body;
+// 	console.log(email);
+
+// 	try {
+// 		const dbUser = await User.findOne({ email });
+
+// 		console.log(dbUser);
+// 		res.json(!!dbUser);
+// 	} catch (error) {
+// 		console.log(error);
+// 		res.status(500).json({ message: 'Internal server error' });
+// 	}
+// };
 userRoute.route('/login').post(login);
 userRoute.route('/register').post(registerUser);
 userRoute.route('/verify-email/:token').get(verifyEmail);

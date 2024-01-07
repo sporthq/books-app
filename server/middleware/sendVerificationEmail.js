@@ -7,7 +7,7 @@ export const sendVerificationEmail = (token, email) => {
     <body>
     <h3>Cześć  ${email}</h3>
     <p>Dziękuje za rejestracje w <b> BookingsRate! </b> </p>
-    <p>Użyj linku poniżej, aby potwierdzić swoją rejestrację, (link jest ważny przez 72h).</p>
+    <p>Użyj linku poniżej, aby potwierdzić swoją rejestrację, (link jest ważny przez 24 godziny!).</p>
     <h2><a style="text-decoration: none" href="http://localhost:5173/email-verify/${token}">Potwierdzam swój email</a></h2>
     <p>Pozdrawiam Sebastian, zapraszam do zapoznania się z moim  <b><a style="text-decoration: none" href="www.nowakart.pl" >portfolio.</a> </b></p>
 	<p>www.nowakart.pl</p>

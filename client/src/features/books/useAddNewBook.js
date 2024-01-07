@@ -8,6 +8,7 @@ export function useAddNewBook() {
 		mutationFn: (book) => addNewBookToDb(book),
 		onSuccess: () => {
 			toast.success('Ksiazka została dodana!')
+			
 			queryClient.invalidateQueries({
 				queryKey: ['books'],
 			});

@@ -17,10 +17,7 @@ import {
 } from '../../ui/CardBookComponents';
 const BookListItem = styled.li`
 	display: flex;
-
-	/* max-width: 350px; */
 	justify-self: start;
-
 `;
 
 export default function BookItem({ books }) {
@@ -54,6 +51,8 @@ export default function BookItem({ books }) {
 		setAddingIndex(index);
 		mutate(newBookData);
 	}
+
+	if (error) return <p>{error.message}</p>;
 
 	if (!books || !Array.isArray(books)) {
 		return <p>Brak danych do wyświetlenia ❌</p>;

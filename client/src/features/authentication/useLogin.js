@@ -3,12 +3,10 @@ import { login } from '../../services/authentication/apiUsers';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
-
 export default function useLogin() {
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
 
-	
 	const {
 		mutate: loginUser,
 		isPending = true,
@@ -24,7 +22,6 @@ export default function useLogin() {
 		onError: (err) => {
 			toast.error(err.message);
 		},
-	
 	});
 
 	return { loginUser, isPending, error };

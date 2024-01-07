@@ -14,7 +14,7 @@ export default function useRegister() {
 		onSuccess: (user) => {
 			console.log(user);
 			toast.success('Konto zostało utworzone, sprawdź swoją pocztę bo dokończyć rejestrację.');
-			queryClient.setQueriesData(['user'], user.user);
+			queryClient.setQueryData(['user'], () => user.user);
 		},
 		onError: (err) => {
 			toast.error(err.message);

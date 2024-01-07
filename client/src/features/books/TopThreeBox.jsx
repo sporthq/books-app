@@ -7,21 +7,19 @@ import { calculateSortingPoints } from '../../utils/calculateRating';
 
 const TopThreeBoxStyled = styled.div`
 	padding: 2.4rem 1.5rem;
-	/* display: flex; */
+	
 	display: grid;
-	/* flex-direction: column; */
+	
 	align-items: center;
 	border-radius: 4px;
 
 	@media only screen and (max-width: 75em) {
 		padding: 6.2rem 0;
-		/* align-items: start; */
 	}
 `;
 
 const TopThreeUlList = styled.ul`
-	/* display: flex;
-	flex-direction: column; */
+
 	display: grid;
 	grid-template-columns: 1fr;
 	gap: 3.2rem;

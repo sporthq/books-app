@@ -1,10 +1,17 @@
 import { GoTrash } from 'react-icons/go';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useFetchUserReviews from '../features/authentication/useFetchUserReviews';
 import useDeleteReview from '../features/reviews/useDeleteReview';
 import BackToHome from '../ui/BackToHome';
-import { BookAuthor, BookTitle, BoxImg, DataPublished, LazyLoadImageStyled, WithoutImg } from '../ui/CardBookComponents';
+import {
+	BookAuthor,
+	BookTitle,
+	BoxImg,
+	DataPublished,
+	LazyLoadImageStyled,
+	WithoutImg,
+} from '../ui/CardBookComponents';
 import ConfirmDelete from '../ui/ConfirmDelete';
 import Heading from '../ui/Heading';
 import Loader from '../ui/Loader';
@@ -19,10 +26,8 @@ const ReviewsUserList = styled.ul`
 	gap: 3.2rem;
 	padding: 3.2rem 0;
 
-
-
 	@media only screen and (max-width: 48em) {
-		grid-template-columns: 1fr ;
+		grid-template-columns: 1fr;
 	}
 `;
 const ReviewListItem = styled.li`
@@ -80,22 +85,23 @@ const UserProfile = () => {
 	const [searchParams] = useSearchParams();
 	const page = searchParams.get('page');
 	const { reviews, isLoading, error } = useFetchUserReviews();
-	const { deleteReview, isPending, deleteError } = useDeleteReview();
+	const { deleteReview, isPending } = useDeleteReview();
 	const user = JSON.parse(localStorage.getItem('userInfo'));
 
 	if (isLoading) return <Loader />;
 	if (error) return <p>{error.message}</p>;
 	const pageIsTooLarge = page > Math.ceil(reviews[0]?.amountReviews / PAGE_SIZE_USER_REVIEW);
 
+	console.log(reviews);
 	return (
 		<div>
 			<Heading as='h2'>Twoje recenzje</Heading>
 			<BackToHome />
 			<ReviewsUserList>
-			
 				{reviews?.map((review) => {
 					const { id, bookInfo, contentReview, rating } = review;
-					const { title, author, image, publishedDate } = bookInfo;
+					if (bookInfo === null) return <p>Książka została usunięta  z naszej bazdy danych</p>;
+					const { title, author, image, publishedDate, _id } = bookInfo;
 
 					return (
 						<ReviewListItem key={id}>
@@ -118,23 +124,25 @@ const UserProfile = () => {
 								</Modal>
 							)}
 							<BookInfoBox>
-								{image ? (
-									<BoxImg>
-										<LazyLoadImageStyled
-											height={170}
-											width={120}
-											effect='blur'
-											loading='lazy'
-											src={image}
-											alt={`ksiązka ${title}`}
-											placeholderSrc='https://placehold.co/120x170'
-										></LazyLoadImageStyled>
-									</BoxImg>
-								) : (
-									<WithoutImg>
-										<p style={{ fontSize: '1.2rem', padding: '0 1rem', color: 'var(--grey-900)' }}>Brak okładki</p>
-									</WithoutImg>
-								)}
+								<Link to={'/books/' + _id}>
+									{image ? (
+										<BoxImg>
+											<LazyLoadImageStyled
+												height={170}
+												width={120}
+												effect='blur'
+												loading='lazy'
+												src={image}
+												alt={`ksiązka ${title}`}
+												placeholderSrc='https://placehold.co/120x170'
+											></LazyLoadImageStyled>
+										</BoxImg>
+									) : (
+										<WithoutImg>
+											<p style={{ fontSize: '1.2rem', padding: '0 1rem', color: 'var(--grey-900)' }}>Brak okładki</p>
+										</WithoutImg>
+									)}
+								</Link>
 								<UserInfoAboutReview>
 									<BookTitle>{title}</BookTitle>
 									<BookAuthor>{author}</BookAuthor>

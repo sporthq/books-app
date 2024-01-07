@@ -13,6 +13,11 @@ const MessageBox = styled.div`
 	border: 1px solid var(--grey-600);
 	padding: 3.2rem 0;
 	box-shadow: var(--shadow-md);
+
+	@media only screen and (max-width: 36em) {
+		max-width: 32rem;
+		justify-self: center;
+	}
 `;
 
 const ErrorMessageEmail = styled.div`

@@ -19,38 +19,23 @@ export const getAllBooks = async () => {
 	}
 };
 
-// get single book
-
-// export async function getSingleBook(id,pageNumber) {
-
-// 	try {
-// 		const config = { headers: { 'Content-Type': 'application/json' } };
-// 		const res = await axios.get(`${baseURL}/api/books/${id}?page=${pageNumber}`, config);
-
-// 		console.log(res.data);
-// 		return res.data;
-// 	} catch (error) {
-// 		throw new Error(
-// 			error.response && error.response.data && error.response.data.message
-// 				? error.response.data.message
-// 				: error.message
-// 				  ? error.message
-// 				  : 'Wystąpił nieznany błąd.'
-// 		);
-// 	}
-// }
-
-// todo test
 export async function getSingleBook(id) {
 	try {
 		const config = { headers: { 'Content-Type': 'application/json' } };
 		const res = await axios.get(`${baseURL}/api/books/${id}`, config);
 
-		
 		if (res.data) {
 			return res.data;
+		} else if (res.status === 404) {
+			return null;
 		} else {
-			throw new Error('Nie znaleziono książki o takim ID');
+			throw new Error(
+				res.response && res.response.data && res.response.data.message
+					? res.response.data.message
+					: res.message
+					  ? res.message
+					  : 'Wystąpił nieznany błąd.'
+			);
 		}
 	} catch (error) {
 		throw new Error(

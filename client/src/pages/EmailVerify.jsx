@@ -20,7 +20,8 @@ const LoginLayout = styled.main`
 
 	/* 576px */
 	@media only screen and (max-width: 36em) {
-		grid-template-columns: 43rem;
+		grid-template-columns: 40rem;
+		
 	}
 `;
 

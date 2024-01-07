@@ -12,24 +12,24 @@ const getBooks = async (req, res) => {
 
 		res.json({
 			books,
-			pagination: {},
 		});
 	} catch (error) {
 		res.status(404).json({ message: 'Wystąpił błąd, spróbuj ponownie' });
 	}
 };
 
-
-
-
 const getSingleBook = async (req, res) => {
-	const book = await Books.findById(req.params.id);
+	try {
+		const book = await Books.findById(req.params.id);
 
-	if (!book) {
-		return res.status(404).json('Nie ma takiej ksiązki');
+		if (!book) {
+			return res.status(404).json({ message: 'Nie ma takiej książki' });
+		}
+
+		res.json(book);
+	} catch (error) {
+		return res.status(500).json({ message: 'Nie udało się znaleźć ksiązki, sprobuj ponownia' });
 	}
-
-	res.json(book);
 };
 
 const addBookToDb = async (req, res) => {
