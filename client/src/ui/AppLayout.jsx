@@ -9,7 +9,7 @@ import LogoTextBottom from './LogoTextBottom';
 
 const StyledAppLayout = styled.div`
 	display: grid;
-	grid-template-columns: 8vw 1fr 1fr auto;
+	grid-template-columns: 8vw 1fr 1fr ;
 
 	@media only screen and (max-width: 75em) {
 		grid-template-columns: 1fr 1fr auto;

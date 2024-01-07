@@ -22,6 +22,10 @@ const BooksList = styled.ul`
 	grid-template-columns: 1fr 1fr;
 	gap: 4.8rem;
 	padding: 2.4rem 0;
+
+	@media only screen and (max-width: 48em) {
+		grid-template-columns: 1fr;
+	}
 `;
 const BookListItem = styled.li`
 	display: flex;
