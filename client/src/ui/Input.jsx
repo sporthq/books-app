@@ -17,6 +17,18 @@ const Input = styled.input`
 		transform: translateY(-0.1rem);
 	}
 
+	// 768px
+	@media only screen and (max-width: 48em) {
+		width: 35%;
+	}
+	// 576px
+	@media only screen and (max-width: 36em) {
+		width: 45%;
+	}
+	// 480
+	@media only screen and (max-width: 30em) {
+		width: 55%;
+	}
 	${(props) =>
 		props.$breadth === 'full' &&
 		css`

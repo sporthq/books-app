@@ -5,10 +5,15 @@ import { VscPreview } from 'react-icons/vsc';
 import Button from '../ui/Button';
 import { useLogout } from '../features/authentication/useLogout';
 import { useEffect, useRef, useState } from 'react';
-
+import { CgMenuRight } from 'react-icons/cg';
 const UserPanelBox = styled.div`
 	display: flex;
 	gap: 1rem;
+
+	// 768px
+	@media only screen and (max-width: 48em) {
+		display: none;
+	}
 `;
 
 const UserInfo = styled.div`
@@ -86,7 +91,6 @@ const BoxMenu = styled.div`
 		/* border: 1px solid var(--accent-150); */
 	}
 `;
-
 const BoxMenuListItem = styled.li``;
 
 const LinkToReview = styled(Link)`
@@ -100,10 +104,72 @@ const LinkToReview = styled(Link)`
 const VscPreviewStyled = styled(VscPreview)`
 	margin-top: 0.1rem;
 `;
+
+const UserName = styled.p`
+	// 768px
+	@media only screen and (max-width: 48em) {
+		display: none;
+	}
+	// 576px
+	@media only screen and (max-width: 36em) {
+	}
+`;
+
+const BoxMenuMobile = styled.div`
+	position: relative;
+	display: none;
+
+	// 768px
+	@media only screen and (max-width: 48em) {
+		display: block;
+	}
+	// 576px
+	@media only screen and (max-width: 36em) {
+	}
+`;
+
+const CgMenuRightStyled = styled(CgMenuRight)`
+	font-size: 2rem;
+	cursor: pointer;
+	color: var(--accent-200);
+`;
+
+const MobileMenuLink = styled.nav`
+	right: 150%;
+
+	min-width: 15rem;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 1.2rem 2rem;
+	border: 1px solid var(--accent-200);
+	background-color: #fff;
+	border-radius: var(--border-radius-sm);
+	z-index: 100;
+`;
+
+const MobileLink = styled(Link)`
+	font-weight: bold;
+	padding: 1.2rem 0;
+	color: var(--accent-200);
+	/* border-bottom: 2px solid var(--accent-150); */
+
+	&:last-child {
+		border-bottom: none;
+	}
+
+	&:hover {
+		color: var(--accent-150);
+	}
+`;
 export default function UserPanel() {
 	const [showMenu, setShowMenu] = useState(false);
+	const [showMenuMobile, setShowMenuMobile] = useState(false);
 	const user = JSON.parse(localStorage.getItem('userInfo'));
 	const ref = useRef();
+	const mobileRef = useRef(null);
+
 	const { logout } = useLogout();
 	function handlerLogout() {
 		logout();
@@ -119,16 +185,27 @@ export default function UserPanel() {
 
 		return () => document.removeEventListener('click', handleClick);
 	}, []);
+
+	useEffect(() => {
+		function handleClick(e) {
+			if (mobileRef.current && !mobileRef.current.contains(e.target)) {
+				setShowMenuMobile(false);
+			}
+		}
+		document.addEventListener('click', handleClick);
+
+		return () => document.removeEventListener('click', handleClick);
+	}, []);
+
 	return (
 		<>
 			{user ? (
 				<UserInfo>
-					<p>{user?.name}</p>
+					<UserName>{user?.name}</UserName>
 					<LinkToProfile
 						ref={ref}
 						onClick={() => {
 							setShowMenu(!showMenu);
-							close();
 						}}
 					>
 						<UserImage
@@ -158,18 +235,30 @@ export default function UserPanel() {
 					</Link>
 				</UserInfo>
 			) : (
-				<UserPanelBox>
-					<Link to='/login'>
-						<Button $sizes='medium' $variations='secondary'>
-							Zaloguj
-						</Button>
-					</Link>
-					<Link to='/register'>
-						<Button $sizes='medium' $variations='primary'>
-							Załóż Konto
-						</Button>
-					</Link>
-				</UserPanelBox>
+				<>
+					<BoxMenuMobile ref={mobileRef}>
+						<CgMenuRightStyled onClick={() => setShowMenuMobile(!showMenuMobile)} />
+						{showMenuMobile && (
+							<MobileMenuLink>
+								<MobileLink to={'/login'}>Zaloguj</MobileLink>
+								<hr style={{ color: 'var(--accent-150)' }} />
+								<MobileLink to={'/register'}>Załóż konto</MobileLink>
+							</MobileMenuLink>
+						)}
+					</BoxMenuMobile>
+					<UserPanelBox>
+						<Link to='/login'>
+							<Button $sizes='medium' $variations='secondary'>
+								Zaloguj
+							</Button>
+						</Link>
+						<Link to='/register'>
+							<Button $sizes='medium' $variations='primary'>
+								Załóż Konto
+							</Button>
+						</Link>
+					</UserPanelBox>
+				</>
 			)}
 		</>
 	);

@@ -18,7 +18,7 @@ import {
 const BookListItem = styled.li`
 	display: flex;
 
-	max-width: 350px;
+	/* max-width: 350px; */
 	justify-self: start;
 
 `;

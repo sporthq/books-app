@@ -74,7 +74,7 @@ const GlobalStyles = styled.createGlobalStyle`
 		min-height: 100vh;
 		max-width: 136rem;
 		margin: 0 auto;
-		padding: 0 3.2rem;
+		padding: 0 4.8rem;
 		line-height: 1.5;
 		font-size: 1.6rem;
 	}

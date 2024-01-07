@@ -29,18 +29,19 @@ const TopThreeUlList = styled.ul`
 
 	// 1200px
 	@media only screen and (max-width: 75em) {
-		grid-template-columns: repeat(auto-fit, minmax(100px,1fr))
-		
+		grid-template-columns: 1fr 1fr;
 	}
-	// 1024px
-	@media only screen and (max-width: 64em) {
-		/* grid-template-columns: 1fr */
+
+	// 768px
+	@media only screen and (max-width: 48em) {
+		grid-template-columns: 1fr;
 	}
 `;
 
 const TopThreeHeading = styled(Heading)`
+	text-align: center;
 	@media only screen and (max-width: 75em) {
-		align-self: start;
+		text-align: left;
 	}
 `;
 

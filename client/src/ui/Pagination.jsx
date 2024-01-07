@@ -10,6 +10,13 @@ const StyledPagination = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+
+	// 592px
+
+	@media only screen and (max-width: 37em) {
+		padding-top: 2.4rem;
+		flex-direction: column;
+	}
 `;
 
 const P = styled.p`
@@ -83,7 +90,6 @@ export default function Pagination({ count, pageSize }) {
 		setSearchParams(searchParams);
 	}
 
-	
 	if (pageCount <= 1) return null;
 	return (
 		<StyledPagination>

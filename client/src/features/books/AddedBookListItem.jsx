@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 import {
-	
 	BookAuthor,
 	BookTitle,
 	DataPublished,

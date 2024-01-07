@@ -16,7 +16,7 @@ const fadeIn = keyframes`
 	
   }
 `;
-const TopThreeBoxStyled = styled.div`
+const LastedAddedStyledBox = styled.div`
 	display: grid;
 	flex-direction: column;
 	grid-column: 1/-1;
@@ -24,7 +24,8 @@ const TopThreeBoxStyled = styled.div`
 
 	@media only screen and (max-width: 75em) {
 		margin-top: 0;
-		padding: 6.2rem 0;
+		padding-top: 6.2rem;
+		padding-bottom: 2.4rem;
 	}
 `;
 
@@ -35,6 +36,16 @@ const LastAddedListUl = styled.ul`
 	gap: 5.2rem;
 	padding: 2.4rem 0;
 	animation: ${fadeIn} 0.5s ease-in-out;
+
+	// 1200px
+	@media only screen and (max-width: 75em) {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	// 768px
+	@media only screen and (max-width: 48em) {
+		grid-template-columns: 1fr;
+	}
 `;
 const ShowAllButton = styled(Button)`
 	display: flex;
@@ -49,6 +60,10 @@ const ShowAllButton = styled(Button)`
 		transform: translateY(-1px);
 		/* opacity: 0; */
 	}
+
+	@media only screen and (max-width: 36em){
+		justify-self: center;
+	}
 `;
 
 const HiArrowRightStyled = styled(HiArrowRight)`
@@ -58,7 +73,7 @@ const HiArrowRightStyled = styled(HiArrowRight)`
 const LastedAdded = () => {
 	const { isLoading, books, errFetchBooks } = useFetchBooks();
 	return (
-		<TopThreeBoxStyled>
+		<LastedAddedStyledBox>
 			<Heading as='h2'>Ostatnio dodane:</Heading>
 			{isLoading && <Loader />}
 			{errFetchBooks && <p>Coś poszło nie tak... 🤢</p>}
@@ -76,7 +91,7 @@ const LastedAdded = () => {
 					Pokaż wszystkie <HiArrowRightStyled />
 				</ShowAllButton>
 			)}
-		</TopThreeBoxStyled>
+		</LastedAddedStyledBox>
 	);
 };
 

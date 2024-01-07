@@ -44,10 +44,14 @@ const BooksList = styled.ul`
 	@media only screen and (max-width: 63em) {
 		row-gap: 5.2rem;
 		grid-template-columns: 1fr 1fr;
-	
-		
+
 		padding-bottom: 6.2rem;
 		justify-content: center;
+	}
+
+	// 768px
+	@media only screen and (max-width: 48em) {
+		grid-template-columns: 1fr;
 	}
 `;
 
