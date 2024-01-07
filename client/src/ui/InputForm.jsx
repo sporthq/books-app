@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled from "styled-components";
 
-const Input = styled.input`
+const InputForm = styled.input`
 	position: relative;
 	padding: 0.8rem 1.2rem;
 	font-family: inherit;
@@ -8,7 +8,7 @@ const Input = styled.input`
 	border: 1px solid var(--accent-200);
 	border-radius: var(--border-radius-sm);
 	box-shadow: var(--shadow-sm);
-	width: 30%;
+	width: 100%;
 	transition: transform 0.3s;
 
 	&:focus {
@@ -16,20 +16,6 @@ const Input = styled.input`
 
 		transform: translateY(-0.1rem);
 	}
-
-	// 768px
-	@media only screen and (max-width: 48em) {
-		width: 35%;
-	}
-	// 576px
-	@media only screen and (max-width: 36em) {
-		width: 45%;
-	}
-	// 480
-	@media only screen and (max-width: 30em) {
-		width: 75%;
-	}
-	
 `;
 
-export default Input;
+export default InputForm;

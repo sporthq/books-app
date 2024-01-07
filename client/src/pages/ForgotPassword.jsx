@@ -14,6 +14,7 @@ import Button from '../ui/Button';
 import ErrorMessage from '../ui/ErrorMessage';
 import SpinnerMini from '../ui/SpinnrerMini';
 import SuccesMessage from '../ui/SuccessMessage';
+import InputForm from '../ui/InputForm';
 
 const LoginLayout = styled.main`
 	display: grid;
@@ -23,6 +24,11 @@ const LoginLayout = styled.main`
 	min-height: 100vh;
 
 	gap: 3.2rem;
+
+	/* 576px */
+	@media only screen and (max-width: 36em) {
+		grid-template-columns: 43rem;
+	}
 `;
 const Form = styled.form`
 	display: flex;
@@ -75,9 +81,7 @@ function EmailVerify() {
 				{error ? <ErrorMessage>{error.message}</ErrorMessage> : ''}
 				<LoginFormBox>
 					<label htmlFor='email'>E-mail</label>
-					<Input
-						// disabled={isPending}
-						$breadth='full'
+					<InputForm
 						autoComplete='username'
 						type='email'
 						id='email'

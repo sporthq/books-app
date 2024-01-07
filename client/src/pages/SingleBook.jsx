@@ -1,30 +1,29 @@
-import styled, { keyframes } from 'styled-components';
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
-import { useFetchSingleBook } from './../features/books/useFetchSignleBook';
+import styled, { keyframes } from 'styled-components';
 import Reviews from '../features/reviews/Reviews';
 import { useAddReview } from '../features/reviews/useAddReview';
 import { getAllReviews } from '../services/books/apiBooks';
+import BackToHome from '../ui/BackToHome';
+import Button from '../ui/Button';
 import {
 	BookAuthor,
-	
 	BookTitle,
 	DataPublished,
 	LazyLoadImageStyled,
 	TextBox,
 	WithoutImg,
 } from '../ui/CardBookComponents';
-import Button from '../ui/Button';
+import ErrorMessage from '../ui/ErrorMessage';
 import Form from '../ui/Form';
 import Heading from '../ui/Heading';
-import Input from '../ui/Input';
+import InputForm from '../ui/InputForm';
+import Loader from '../ui/Loader';
+import SpinnerMini from '../ui/SpinnrerMini';
 import StarRating from '../ui/StarRating';
 import TextArea from '../ui/TextArea';
-import ErrorMessage from '../ui/ErrorMessage';
-import SpinnerMini from '../ui/SpinnrerMini';
-import BackToHome from '../ui/BackToHome';
-import Loader from '../ui/Loader';
+import { useFetchSingleBook } from './../features/books/useFetchSignleBook';
 
 const fadeIn = keyframes`
   from {
@@ -43,6 +42,11 @@ const SingleBookContainer = styled.div`
 
 	grid-auto-rows: minmax(auto, auto);
 	grid-gap: 6.4rem;
+
+	/* 1024px */
+	@media only screen and (max-width: 64em) {
+		grid-template-columns: 1fr;
+	}
 `;
 
 const WriteReviewBox = styled.div`
@@ -50,8 +54,10 @@ const WriteReviewBox = styled.div`
 	flex-direction: column;
 	grid-column: 1/2;
 	grid-row: 2;
-	/* gap: 1.2rem; */
-	/* height: 500px; */
+
+	@media only screen and (max-width: 64em) {
+		grid-row: 3;
+	}
 `;
 
 const SingleBookBox = styled.div`
@@ -61,15 +67,23 @@ const SingleBookBox = styled.div`
 	align-self: start;
 	gap: 2.4rem;
 	animation: ${fadeIn} 0.5s ease-in-out;
+
+	@media only screen and (max-width: 36em) {
+		flex-direction: column;
+		
+	}
 `;
 const BoxImage = styled.div`
 	/* width: 12rem; */
 	max-height: 30rem;
+
 `;
 
 const BookImgSingle = styled(LazyLoadImageStyled)`
 	height: 30rem;
 	width: auto;
+
+	
 `;
 const WithoutImgSingle = styled(WithoutImg)`
 	height: 30rem;
@@ -146,7 +160,6 @@ export default function SingleBook() {
 							<BoxImage>
 								<BookImgSingle
 									height={300}
-									
 									loading='lazy'
 									effect='blur'
 									src={singleBook?.image}
@@ -191,9 +204,8 @@ export default function SingleBook() {
 						<label style={{ color: 'var(--text-200)' }} htmlFor='username'>
 							Nick
 						</label>
-						<Input
+						<InputForm
 							disabled={isPending || !user || userLeaveReview}
-							$breadth='full'
 							autoComplete='username'
 							type='text'
 							id='username'

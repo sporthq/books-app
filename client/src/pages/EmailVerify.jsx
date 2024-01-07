@@ -16,8 +16,12 @@ const LoginLayout = styled.main`
 	justify-content: center;
 	grid-template-columns: 48rem;
 	min-height: 100vh;
-
 	gap: 3.2rem;
+
+	/* 576px */
+	@media only screen and (max-width: 36em) {
+		grid-template-columns: 43rem;
+	}
 `;
 
 function EmailVerify() {
@@ -34,7 +38,7 @@ function EmailVerify() {
 	return (
 		<LoginLayout>
 			<Logo>
-				<CompanyName $size='big'>
+				<CompanyName>
 					Bookings <LogoTextBottom>Rate </LogoTextBottom>
 				</CompanyName>
 			</Logo>

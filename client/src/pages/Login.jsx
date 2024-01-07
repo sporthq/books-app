@@ -16,6 +16,11 @@ const LoginLayout = styled.main`
 	min-height: 100vh;
 
 	gap: 3.2rem;
+
+	/* 576px */
+	@media only screen and (max-width: 36em) {
+		grid-template-columns: 43rem;
+	}
 `;
 
 function Login() {

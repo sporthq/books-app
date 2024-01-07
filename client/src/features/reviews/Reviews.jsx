@@ -15,6 +15,11 @@ const ReviewsBox = styled.div`
 	grid-column: 2/-1;
 	grid-row: 1/4;
 	overflow-y: hidden;
+
+	@media only screen and (max-width: 64em) {
+		grid-column: 1/2;
+		grid-row: 2;
+	}
 `;
 
 const ReviewListUl = styled.ul`

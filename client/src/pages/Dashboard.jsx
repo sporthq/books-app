@@ -23,6 +23,7 @@ const Box = styled.div`
 const SearchListBox = styled.div`
 	position: relative;
 	height: auto;
+	padding-bottom: 1.2rem;
 `;
 
 const BooksList = styled.ul`
@@ -66,7 +67,7 @@ export default function Dashboard() {
 				{!query ? (
 					<p>Szukaj ksiązki ⬆️</p>
 				) : loading ? (
-					<Loader style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50% )' }} />
+					<Loader style={{ position: 'absolute',padding: '2.4rem', left: '50%', top: '50%', transform: 'translate(-50%,-50% )' }} />
 				) : error ? (
 					<p>Wystąpił nieoczekiwany błąd</p>
 				) : (

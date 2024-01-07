@@ -9,12 +9,14 @@ import useRegister from '../features/authentication/useRegister';
 import SpinnerMini from './SpinnrerMini';
 import SuccesMessage from './SuccessMessage';
 import { FaCheckCircle } from 'react-icons/fa';
+import InputForm from './InputForm';
 const Form = styled.form`
 	display: flex;
 	flex-direction: column;
 	gap: 2.4rem;
 	padding: 2.4rem 4rem;
 	box-shadow: var(--shadow-md);
+	
 `;
 
 const CheckIcon = styled(FaCheckCircle)`
@@ -56,8 +58,7 @@ const RegisterForm = () => {
 			{error ? <ErrorMessage>{error.message}</ErrorMessage> : ''}
 			<LoginFormBox>
 				<label htmlFor='name'>Username</label>
-				<Input
-					$breadth='full'
+				<InputForm
 					id='name'
 					type='text'
 					{...register('name', {
@@ -68,8 +69,7 @@ const RegisterForm = () => {
 			</LoginFormBox>
 			<LoginFormBox>
 				<label htmlFor='email'>E-mail</label>
-				<Input
-					$breadth='full'
+				<InputForm
 					autoComplete='username'
 					id='email'
 					type='email'
@@ -85,9 +85,8 @@ const RegisterForm = () => {
 			</LoginFormBox>
 			<LoginFormBox>
 				<label htmlFor='password'>Hasło</label>
-				<Input
+				<InputForm
 					disabled={isPending}
-					$breadth='full'
 					type='password'
 					id='password'
 					{...register('password', {
@@ -102,9 +101,8 @@ const RegisterForm = () => {
 			</LoginFormBox>
 			<LoginFormBox>
 				<label htmlFor='confirmPassword'>Powtórz hasło</label>
-				<Input
+				<InputForm
 					disabled={isPending}
-					$breadth='full'
 					type='password'
 					id='confirmPassword'
 					{...register('confirmPassword', {

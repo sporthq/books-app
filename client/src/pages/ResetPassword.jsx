@@ -15,6 +15,7 @@ import SpinnerMini from '../ui/SpinnrerMini';
 import SuccesMessage from '../ui/SuccessMessage';
 
 import useResetPassword from '../features/authentication/useResetPassword';
+import InputForm from '../ui/InputForm';
 
 const LoginLayout = styled.main`
 	display: grid;
@@ -24,6 +25,11 @@ const LoginLayout = styled.main`
 	min-height: 100vh;
 
 	gap: 3.2rem;
+
+	/* 576px */
+	@media only screen and (max-width: 36em) {
+		grid-template-columns: 43rem;
+	}
 `;
 const Form = styled.form`
 	display: flex;
@@ -78,9 +84,8 @@ function ResetPassword() {
 				{error ? <ErrorMessage>{error.message}</ErrorMessage> : ''}
 				<LoginFormBox>
 					<label htmlFor='password'>Hasło</label>
-					<Input
+					<InputForm
 						disabled={isPending}
-						$breadth='full'
 						type='password'
 						id='password'
 						{...register('password', {
@@ -95,9 +100,8 @@ function ResetPassword() {
 				</LoginFormBox>
 				<LoginFormBox>
 					<label htmlFor='confirmPassword'>Powtórz hasło</label>
-					<Input
+					<InputForm
 						disabled={isPending}
-						$breadth='full'
 						type='password'
 						id='confirmPassword'
 						{...register('confirmPassword', {

@@ -18,6 +18,12 @@ const ReviewsUserList = styled.ul`
 	grid-template-columns: 1fr 1fr;
 	gap: 3.2rem;
 	padding: 3.2rem 0;
+
+
+
+	@media only screen and (max-width: 48em) {
+		grid-template-columns: 1fr ;
+	}
 `;
 const ReviewListItem = styled.li`
 	position: relative;
@@ -40,6 +46,16 @@ const ReviewListItem = styled.li`
 const BookInfoBox = styled.div`
 	display: flex;
 	gap: 3.2rem;
+
+	@media only screen and (max-width: 64em) {
+		flex-direction: column;
+	}
+	@media only screen and (max-width: 48em) {
+		flex-direction: row;
+	}
+	@media only screen and (max-width: 36em) {
+		flex-direction: column;
+	}
 `;
 
 const UserInfoAboutReview = styled.div`
@@ -76,6 +92,7 @@ const UserProfile = () => {
 			<Heading as='h2'>Twoje recenzje</Heading>
 			<BackToHome />
 			<ReviewsUserList>
+			
 				{reviews?.map((review) => {
 					const { id, bookInfo, contentReview, rating } = review;
 					const { title, author, image, publishedDate } = bookInfo;

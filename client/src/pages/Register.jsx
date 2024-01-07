@@ -16,6 +16,11 @@ const LoginLayout = styled.main`
 	min-height: 100vh;
 	gap: 3.2rem;
 	padding: 4rem 0;
+
+	/* 576px */
+	@media only screen and (max-width: 36em) {
+		grid-template-columns: 43rem;
+	}
 `;
 
 function Register() {
@@ -38,11 +43,12 @@ function Register() {
 					Bookings <LogoTextBottom>Rate </LogoTextBottom>
 				</CompanyName>
 			</Logo>
-
+ 
 			<Heading style={{ textAlign: 'center' }} as='h2'>
 				Załóż konto w bookings rate <span style={{ color: 'yellow' }}> 👇</span>
-			</Heading>
+			</Heading> 
 			<RegisterForm />
+		
 		</LoginLayout>
 	);
 }

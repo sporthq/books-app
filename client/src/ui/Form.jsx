@@ -14,6 +14,13 @@ const Form = styled.form`
 			max-width: 90%;
 			gap: 1.6rem;
 			box-shadow: none;
+
+			@media only screen and (max-width: 64em) {
+				max-width: 65%;
+			}
+			@media only screen and (max-width: 48em) {
+				max-width: 100%;
+			}
 		`}
 `;
 

@@ -16,6 +16,7 @@ import { googleLogin } from '../services/authentication/apiUsers';
 import toast from 'react-hot-toast';
 
 import Form from './Form';
+import InputForm from './InputForm';
 
 const LinksBox = styled.div`
 	display: flex;
@@ -72,9 +73,9 @@ const FormLogin = () => {
 				{error ? <ErrorMessage>{error.message}</ErrorMessage> : ''}
 				<LoginFormBox>
 					<label htmlFor='email'>E-mail</label>
-					<Input
+					<InputForm
 						disabled={isPending}
-						$breadth='full'
+						
 						autoComplete='username'
 						type='email'
 						id='email'
@@ -86,9 +87,9 @@ const FormLogin = () => {
 				</LoginFormBox>
 				<LoginFormBox>
 					<label htmlFor='password'>Hasło</label>
-					<Input
+					<InputForm
 						disabled={isPending}
-						$breadth='full'
+						
 						type='password'
 						id='password'
 						{...register('password', {
