@@ -29,6 +29,7 @@
 		"nodemailer": "^6.9.7",
 		"react-flip-move": "^3.0.5",
 		"react-icons": "^4.12.0",
-		"use-debounce": "^10.0.0"
+		"use-debounce": "^10.0.0",
+		"vercel": "^33.0.2"
 	}
 }

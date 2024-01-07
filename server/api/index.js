@@ -4,7 +4,6 @@ dotenv.config();
 import connectToDB from '../db.js';
 import express from 'express';
 import cors from 'cors';
-import path from 'path';
 
 // routes
 import booksRoutes from '../routes/booksRoutes.js';
