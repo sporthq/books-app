@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {
 	AmountReview,
 	BookAuthor,
-	
 	BookTitle,
 	DataPublished,
 	TextBox,
@@ -26,7 +25,14 @@ const RankingNumber = styled.span`
 const TopThreeLiList = styled.li`
 	position: relative;
 	display: flex;
+	/* max-width: 250px; */
+	
 	gap: 1.2rem;
+
+	@media only screen and (max-width: 64em) {
+		/* max-width: 50rem; */
+		
+	}
 `;
 
 const TopThreeBooksListItem = ({ book, index }) => {
@@ -50,7 +56,7 @@ const TopThreeBooksListItem = ({ book, index }) => {
 					</WithoutImg>
 				)}
 			</Link>
-			<RankingNumber>{index + 1}</RankingNumber>
+			{/* <RankingNumber>{index + 1}</RankingNumber> */}
 
 			<TextBox style={{ justifyContent: 'start' }}>
 				<BookTitle>{book?.title}</BookTitle>

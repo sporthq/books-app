@@ -35,17 +35,23 @@ const TextBox = styled.div`
 const BookTitle = styled.p`
 	font-size: 1.8rem;
 	display: -webkit-box;
+	max-width: 100%;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+	text-overflow: ellipsis;
 	-webkit-line-clamp: 2;
 `;
 const BookAuthor = styled.p`
 	color: var(--grey-600);
 	font-weight: bold;
 	display: -webkit-box;
+	max-width: 100%;
+	text-overflow: ellipsis;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	-webkit-line-clamp: 1;
+
+	
 `;
 
 const DataPublished = styled.p`

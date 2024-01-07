@@ -10,11 +10,13 @@ const Box = styled.div`
 	display: grid;
 	grid-template-columns: 70% 35%;
 	min-height: 80dvh;
+	/* overflow: hidden; */
 
 	color: var(--text-100);
 
 	@media only screen and (max-width: 75em) {
 		grid-template-columns: 1fr;
+		padding-right: 0 4rem;
 	}
 `;
 
@@ -26,19 +28,26 @@ const SearchListBox = styled.div`
 const BooksList = styled.ul`
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 4.8rem;
+	row-gap: 4.8rem;
+	padding-right: 2.4rem;
 
 	@media only screen and (max-width: 75em) {
-		gap: 5.2rem;
-		grid-template-columns: repeat(3, 1fr);
-		padding-bottom: 6.2rem ;
+		row-gap: 5.2rem;
+		/* grid-template-columns: repeat(3, minmax(0,1fr)); */
+		grid-template-columns: 1fr 1fr;
+
+		padding-bottom: 6.2rem;
+		padding-right: 0;
+		grid-auto-flow: dense;
 	}
 
 	@media only screen and (max-width: 63em) {
-		gap: 5.2rem;
-		grid-template-columns: repeat(2, 1fr);
+		row-gap: 5.2rem;
+		grid-template-columns: 1fr 1fr;
+	
 		
-		padding-bottom: 6.2rem ;
+		padding-bottom: 6.2rem;
+		justify-content: center;
 	}
 `;
 

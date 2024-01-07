@@ -5,6 +5,10 @@ const FooterStyled = styled.footer`
 	padding-top: 4.8rem;
 	padding-bottom: 2.4rem;
 	text-align: center;
+
+	@media only screen and (max-width: 75em) {
+		grid-column: 1/-1;
+	}
 `;
 const TextColor = styled.span`
 	color: var(--accent-200);
