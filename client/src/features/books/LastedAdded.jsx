@@ -31,7 +31,8 @@ const TopThreeBoxStyled = styled.div`
 const LastAddedListUl = styled.ul`
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: 2.4rem;
+
+	gap: 5.2rem;
 	padding: 2.4rem 0;
 	animation: ${fadeIn} 0.5s ease-in-out;
 `;
@@ -39,9 +40,10 @@ const ShowAllButton = styled(Button)`
 	display: flex;
 	align-items: center;
 	margin-top: 1.2rem;
-	align-self: end;
+	align-self: flex-end;
 	transition: transform 0.3s;
 	margin-right: 2.4rem;
+	justify-self: end;
 
 	&:hover {
 		transform: translateY(-1px);

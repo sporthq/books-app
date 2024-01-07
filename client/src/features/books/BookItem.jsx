@@ -17,7 +17,10 @@ import {
 } from '../../ui/CardBookComponents';
 const BookListItem = styled.li`
 	display: flex;
-	justify-self: left;
+
+	max-width: 350px;
+	justify-self: start;
+
 `;
 
 export default function BookItem({ books }) {

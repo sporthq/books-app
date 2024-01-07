@@ -7,13 +7,15 @@ import { calculateSortingPoints } from '../../utils/calculateRating';
 
 const TopThreeBoxStyled = styled.div`
 	padding: 2.4rem 1.5rem;
-	display: flex;
-	flex-direction: column;
+	/* display: flex; */
+	display: grid;
+	/* flex-direction: column; */
 	align-items: center;
 	border-radius: 4px;
 
 	@media only screen and (max-width: 75em) {
 		padding: 6.2rem 0;
+		/* align-items: start; */
 	}
 `;
 
@@ -25,9 +27,14 @@ const TopThreeUlList = styled.ul`
 	gap: 3.2rem;
 	margin-top: 2.4rem;
 
+	// 1200px
 	@media only screen and (max-width: 75em) {
-		grid-template-columns: repeat(3, 1fr);
-		gap: 5.2rem;
+		grid-template-columns: repeat(auto-fit, minmax(100px,1fr))
+		
+	}
+	// 1024px
+	@media only screen and (max-width: 64em) {
+		/* grid-template-columns: 1fr */
 	}
 `;
 

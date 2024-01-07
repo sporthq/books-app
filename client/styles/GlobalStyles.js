@@ -74,6 +74,7 @@ const GlobalStyles = styled.createGlobalStyle`
 		min-height: 100vh;
 		max-width: 136rem;
 		margin: 0 auto;
+		padding: 0 3.2rem;
 		line-height: 1.5;
 		font-size: 1.6rem;
 	}
@@ -83,15 +84,18 @@ const GlobalStyles = styled.createGlobalStyle`
 			max-width: 120rem;
 		}
 	}
+	// 1200px
 	@media only screen and (max-width: 75em) {
 		body {
 			max-width: 100rem;
 		}
 	}
-	@media only screen and (max-width: 63em) {
-		/* body {
-			max-width: 90rem;
-		} */
+
+	// 1024px
+	@media only screen and (max-width: 64em) {
+		body {
+			/* max-width: 83rem; */
+		}
 	}
 
 	input,
