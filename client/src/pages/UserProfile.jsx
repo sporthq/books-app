@@ -43,6 +43,18 @@ const ReviewListItem = styled.li`
 
 	transition: transform 0.3s ease-in-out;
 
+	@media only screen and (max-width: 36em) {
+		padding: 3.2rem 0rem;
+		box-shadow: none;
+		border-radius: 0;
+
+		border-bottom: 1px solid var(--accent-200);
+
+		&:last-child {
+			border-bottom: none;
+		}
+	}
+
 	&:hover {
 		transform: translateY(-2px);
 	}
@@ -75,8 +87,8 @@ const ContentReview = styled.p`
 
 const GoTrashStyled = styled(GoTrash)`
 	position: absolute;
-	right: 3.5%;
-	top: 5%;
+	right: 1.5rem;
+	top: 1.5rem;
 	font-size: 1.85rem;
 	color: red;
 	cursor: pointer;
@@ -92,7 +104,6 @@ const UserProfile = () => {
 	if (error) return <p>{error.message}</p>;
 	const pageIsTooLarge = page > Math.ceil(reviews[0]?.amountReviews / PAGE_SIZE_USER_REVIEW);
 
-	
 	return (
 		<div>
 			<Heading as='h2'>
