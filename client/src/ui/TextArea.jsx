@@ -10,6 +10,7 @@ const TextArea = styled.textarea`
 	min-width: 100%;
 	height: 8rem;
     resize: vertical;
+	font-family: inherit;
 	
 	&:focus {
 		outline: 1px solid var(--accent-200);

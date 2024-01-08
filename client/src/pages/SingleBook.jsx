@@ -70,20 +70,16 @@ const SingleBookBox = styled.div`
 
 	@media only screen and (max-width: 36em) {
 		flex-direction: column;
-		
 	}
 `;
 const BoxImage = styled.div`
 	/* width: 12rem; */
 	max-height: 30rem;
-
 `;
 
 const BookImgSingle = styled(LazyLoadImageStyled)`
 	height: 30rem;
 	width: auto;
-
-	
 `;
 const WithoutImgSingle = styled(WithoutImg)`
 	height: 30rem;
@@ -150,7 +146,6 @@ export default function SingleBook() {
 		}
 	};
 
-
 	return (
 		<>
 			<SingleBookContainer>
@@ -212,12 +207,13 @@ export default function SingleBook() {
 							value={user?.name}
 							readOnly
 						/>
-						<label style={{ color: 'var(--text-200)' }} htmlFor='username'>
+						<label style={{ color: 'var(--text-200)' }} htmlFor='contentReview'>
 							Treść recencji:
 						</label>
 
-						{/* // todo zmien htmlFor dla tego textArea */}
 						<TextArea
+							htmlFor='contentReview'
+							id='contentReview'
 							ref={ref}
 							disabled={isPending || !user || userLeaveReview}
 							required
