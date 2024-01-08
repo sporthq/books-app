@@ -2,7 +2,7 @@
 
 Rate the Book is a web application created using the MERN stack (MongoDB, Express, React, Node.js). It allows users to add books from the Open Library API, write reviews, give ratings, and utilize features such as creating an account and logging in with a Google account.
 
-[Watch live ](https://books-app-front.vercel.app){:target="_blank"}
+[Watch live ](https://books-app-front.vercel.app)
 
 ## Features
 
@@ -22,7 +22,7 @@ Rate the Book is a web application created using the MERN stack (MongoDB, Expres
 - OAuth (Google)
 
 ## Authr 
-[My portfolio ](https://www.nowakart.pl){:target="_blank"}
+[My portfolio ](https://www.nowakart.pl)
 
 ## License 
 
@@ -37,7 +37,7 @@ It is important to adhere to the license terms and respect the rights of the pro
 Oceń książkę to aplikacja internetowa stworzona przy użyciu MERN stack (MongoDB, Express, React, Node.js). 
 Pozwala użytkownikom na dodawanie książek z API Open Library, pisanie recenzji, przyznawanie ocen oraz korzystanie z funkcji zakładania konta i logowania za pomocą konta Google.
 
-[Zobacz na żywo ](https://books-app-front.vercel.app){:target="_blank"}
+[Zobacz na żywo ](https://books-app-front.vercel.app)
 
 ## Funkcje
 
@@ -57,7 +57,7 @@ Pozwala użytkownikom na dodawanie książek z API Open Library, pisanie recenzj
 - OAuth (Google)
 
 ## Autor 
-[Moje portfolio ](https://www.nowakart.pl){:target="_blank"}
+[Moje portfolio ](https://www.nowakart.pl)
 
 ## Licencja 
 
