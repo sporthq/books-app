@@ -64,7 +64,7 @@ function EmailVerify() {
 		<LoginLayout>
 			<Logo>
 				<CompanyName $size='big'>
-					Bookings <LogoTextBottom>Rate </LogoTextBottom>
+					Evaluate <LogoTextBottom>the book </LogoTextBottom>
 				</CompanyName>
 			</Logo>
 

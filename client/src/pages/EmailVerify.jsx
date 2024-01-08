@@ -40,7 +40,7 @@ function EmailVerify() {
 		<LoginLayout>
 			<Logo>
 				<CompanyName>
-					Bookings <LogoTextBottom>Rate </LogoTextBottom>
+					Evaluate <LogoTextBottom>the boook </LogoTextBottom>
 				</CompanyName>
 			</Logo>
 

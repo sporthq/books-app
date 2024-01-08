@@ -40,12 +40,12 @@ function Login() {
 		<LoginLayout>
 			<Logo>
 				<CompanyName $size='big'>
-					Bookings <LogoTextBottom>Rate </LogoTextBottom>
+					Evaluate <LogoTextBottom>the book </LogoTextBottom>
 				</CompanyName>
 			</Logo>
 
 			<Heading style={{ textAlign: 'center' }} as='h2'>
-				Zaloguj się do swojego konta <span style={{color:'yellow'}}> 👇</span>
+				Zaloguj się do swojego konta <span style={{ color: 'yellow' }}> 👇</span>
 			</Heading>
 			<FormLogin />
 		</LoginLayout>

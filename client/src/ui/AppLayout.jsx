@@ -51,7 +51,7 @@ export default function AppLayout() {
 				<Aside>
 					<Logo>
 						<CompanyName>
-							Bookings <BrStyled /> <LogoTextBottom>Rate</LogoTextBottom>
+							Evaluate <BrStyled /> <LogoTextBottom>the book</LogoTextBottom>
 						</CompanyName>
 					</Logo>
 				</Aside>

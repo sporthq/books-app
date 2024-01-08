@@ -40,15 +40,14 @@ function Register() {
 		<LoginLayout>
 			<Logo>
 				<CompanyName $size='big'>
-					Bookings <LogoTextBottom>Rate </LogoTextBottom>
+					Evaluate <LogoTextBottom>the book </LogoTextBottom>
 				</CompanyName>
 			</Logo>
- 
+
 			<Heading style={{ textAlign: 'center' }} as='h2'>
-				Załóż konto w bookings rate <span style={{ color: 'yellow' }}> 👇</span>
-			</Heading> 
+				Załóż konto w Evaluate the book <span style={{ color: 'yellow' }}> 👇</span>
+			</Heading>
 			<RegisterForm />
-		
 		</LoginLayout>
 	);
 }

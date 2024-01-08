@@ -6,6 +6,7 @@ const Heading = styled.h1`
 	// todo test
 	background-image: linear-gradient(to right, #00668c, #5eacd3);
 	background-clip: text;
+	-webkit-background-clip: text;
 	color: transparent;
 	${(props) =>
 		props.as === 'h1' &&
