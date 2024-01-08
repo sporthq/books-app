@@ -7,7 +7,7 @@ export const sendPasswordResetEmail = (token, email) => {
     <body>
     <h3>Cześć  ${email}</h3>
     <p>Użyj linku poniżej, aby zresetować swoje hasło 👇 (token ważny jest 30min)</p>
-    <h2><a style="text-decoration: none" href="http://localhost:5173/password-reset/${token}">Resetuj moje hasło</a></h2>
+    <h2><a style="text-decoration: none" href="https://books-app-front.vercel.app/password-reset/${token}">Resetuj moje hasło</a></h2>
     <p>Pozdrawiam Sebastian, zapraszam do zapoznania się z moim  <b><a style="text-decoration: none" href="www.nowakart.pl" >portfolio.</a> </b></p>
 	<p>www.nowakart.pl</p>
     </body>

@@ -8,7 +8,7 @@ export const sendVerificationEmail = (token, email) => {
     <h3>Cześć  ${email}</h3>
     <p>Dziękuje za rejestracje w <b> BookingsRate! </b> </p>
     <p>Użyj linku poniżej, aby potwierdzić swoją rejestrację, (link jest ważny przez 24 godziny!).</p>
-    <h2><a style="text-decoration: none" href="http://localhost:5173/email-verify/${token}">Potwierdzam swój email</a></h2>
+    <h2><a style="text-decoration: none" href="https://books-app-front.vercel.app/email-verify/${token}">Potwierdzam swój email</a></h2>
     <p>Pozdrawiam Sebastian, zapraszam do zapoznania się z moim  <b><a style="text-decoration: none" href="www.nowakart.pl" >portfolio.</a> </b></p>
 	<p>www.nowakart.pl</p>
     </body>
