@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { useLogout } from '../features/authentication/useLogout';
 import Button from '../ui/Button';
 import { IoMdArrowDropdown } from 'react-icons/io';
+import { IoCloseOutline } from 'react-icons/io5';
 
 const UserPanelBox = styled.div`
 	display: flex;
@@ -135,10 +136,17 @@ const CgMenuRightStyled = styled(CgMenuRight)`
 	cursor: pointer;
 	color: var(--accent-200);
 `;
+const IoCloseOutlineStyled = styled(IoCloseOutline)`
+	position: relative;
+	font-size: 2rem;
+	cursor: pointer;
+	color: var(--accent-200);
+	z-index: 1000;
+`;
 
 const MobileMenuLink = styled.nav`
-	right: 150%;
-
+	right: -1rem;
+	top: -1.5rem;
 	min-width: 15rem;
 	position: absolute;
 	display: flex;
@@ -149,6 +157,9 @@ const MobileMenuLink = styled.nav`
 	background-color: #fff;
 	border-radius: var(--border-radius-sm);
 	z-index: 100;
+	opacity: ${({ click }) => (click ? '1' : '0')};
+	pointer-events: ${({ click }) => (click ? 'auto' : 'none')};
+	transition: all 0.3s;
 `;
 
 const MobileLink = styled(Link)`
@@ -173,8 +184,7 @@ const IoMdArrowDropdownStyled = styled(IoMdArrowDropdown)`
 	transform: translateX(-50%);
 	color: var(--accent-200);
 	font-weight: 700;
-
-`
+`;
 export default function UserPanel() {
 	const [showMenu, setShowMenu] = useState(false);
 	const [showMenuMobile, setShowMenuMobile] = useState(false);
@@ -182,6 +192,7 @@ export default function UserPanel() {
 	const ref = useRef();
 	const mobileRef = useRef(null);
 
+	console.log(showMenuMobile);
 	const { logout } = useLogout();
 	function handlerLogout() {
 		logout();
@@ -236,7 +247,6 @@ export default function UserPanel() {
 											<VscPreviewStyled />
 											Twoje recenzje
 										</LinkToReview>
-									
 									</BoxMenuListItem>
 								</ul>
 							</BoxMenu>
@@ -250,7 +260,21 @@ export default function UserPanel() {
 				</UserInfo>
 			) : (
 				<>
-					<BoxMenuMobile ref={mobileRef}>
+					<BoxMenuMobile
+						ref={mobileRef}
+						onClick={(e) => {
+							e.stopPropagation();
+							setShowMenuMobile((curr) => !curr);
+						}}
+					>
+						{showMenuMobile ? <IoCloseOutlineStyled /> : <CgMenuRightStyled />}
+						<MobileMenuLink click={showMenuMobile}>
+							<MobileLink to={'/login'}>Zaloguj</MobileLink>
+							<hr style={{ color: 'var(--accent-150)' }} />
+							<MobileLink to={'/register'}>Załóż konto</MobileLink>
+						</MobileMenuLink>
+					</BoxMenuMobile>
+					{/* <BoxMenuMobile ref={mobileRef}>
 						<CgMenuRightStyled onClick={() => setShowMenuMobile(!showMenuMobile)} />
 						{showMenuMobile && (
 							<MobileMenuLink>
@@ -259,7 +283,7 @@ export default function UserPanel() {
 								<MobileLink to={'/register'}>Załóż konto</MobileLink>
 							</MobileMenuLink>
 						)}
-					</BoxMenuMobile>
+					</BoxMenuMobile> */}
 					<UserPanelBox>
 						<Link to='/login'>
 							<Button $sizes='medium' $variations='secondary'>
