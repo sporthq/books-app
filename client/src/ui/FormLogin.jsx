@@ -27,13 +27,7 @@ const GoogleIcon = styled(FcGoogle)`
 const FormLogin = () => {
 	const navigate = useNavigate();
 	const { loginUser, isPending, error } = useLogin();
-	const { register, handleSubmit, formState } = useForm({
-		// todo usuń default values
-		defaultValues: {
-			email: 'nowak.sebastian99@wp.pl',
-			password: '1234',
-		},
-	});
+	const { register, handleSubmit, formState } = useForm();
 
 	const { errors } = formState;
 
@@ -55,7 +49,7 @@ const FormLogin = () => {
 				console.log(userInfo);
 
 				const { sub, email, name, picture } = userInfo;
-				console.log(sub, email, name, picture );
+				console.log(sub, email, name, picture);
 				await googleLogin(sub, email, name, picture);
 				toast.success('Logowanie zakończone pomyślnie');
 				navigate('/');
@@ -73,7 +67,6 @@ const FormLogin = () => {
 					<label htmlFor='email'>E-mail</label>
 					<InputForm
 						disabled={isPending}
-						
 						autoComplete='username'
 						type='email'
 						id='email'
@@ -87,7 +80,6 @@ const FormLogin = () => {
 					<label htmlFor='password'>Hasło</label>
 					<InputForm
 						disabled={isPending}
-						
 						type='password'
 						id='password'
 						{...register('password', {

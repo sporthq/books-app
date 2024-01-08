@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useLogout } from '../features/authentication/useLogout';
 import Button from '../ui/Button';
-
+import { IoMdArrowDropdown } from 'react-icons/io';
 
 const UserPanelBox = styled.div`
 	display: flex;
@@ -165,10 +165,19 @@ const MobileLink = styled(Link)`
 		color: var(--accent-150);
 	}
 `;
+
+const IoMdArrowDropdownStyled = styled(IoMdArrowDropdown)`
+	position: absolute;
+	bottom: -9px;
+	left: 50%;
+	transform: translateX(-50%);
+	color: var(--accent-200);
+	font-weight: 700;
+
+`
 export default function UserPanel() {
 	const [showMenu, setShowMenu] = useState(false);
 	const [showMenuMobile, setShowMenuMobile] = useState(false);
-	const [isLoggedIn, setIsLoggedIn] = useState(false); 
 	const user = JSON.parse(localStorage.getItem('userInfo'));
 	const ref = useRef();
 	const mobileRef = useRef(null);
@@ -200,10 +209,9 @@ export default function UserPanel() {
 		return () => document.removeEventListener('click', handleClick);
 	}, []);
 
-	
 	return (
 		<>
-			{user || isLoggedIn ? (
+			{user ? (
 				<UserInfo>
 					<UserName>{user?.name}</UserName>
 					<LinkToProfile
@@ -219,6 +227,7 @@ export default function UserPanel() {
 								e.target.src = '/default-user.jpg';
 							}}
 						/>
+						<IoMdArrowDropdownStyled />
 						{showMenu && (
 							<BoxMenu>
 								<ul>
@@ -227,6 +236,7 @@ export default function UserPanel() {
 											<VscPreviewStyled />
 											Twoje recenzje
 										</LinkToReview>
+									
 									</BoxMenuListItem>
 								</ul>
 							</BoxMenu>

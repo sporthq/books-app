@@ -74,7 +74,7 @@ function EmailVerify() {
 
 			<Form onSubmit={handleSubmit(onSubmit)}>
 				{isSuccess ? (
-					<SuccesMessage style={{ fontSize: '4rem' }}>Sprawdź swoją skrzynkę email i kliknij w link!</SuccesMessage>
+					<SuccesMessage style={{ fontSize: '4rem' }}>Sprawdź swoją skrzynkę email i kliknij w link w wiadomości!</SuccesMessage>
 				) : (
 					''
 				)}
