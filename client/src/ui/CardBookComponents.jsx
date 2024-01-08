@@ -36,6 +36,7 @@ const BookTitle = styled.p`
 	font-size: 1.8rem;
 	display: -webkit-box;
 	max-width: 100%;
+	color: var(--text-200);
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -50,8 +51,6 @@ const BookAuthor = styled.p`
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	-webkit-line-clamp: 1;
-
-	
 `;
 
 const DataPublished = styled.p`
