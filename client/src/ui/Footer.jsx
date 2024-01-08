@@ -28,7 +28,7 @@ export default function Footer() {
 	return (
 		<FooterStyled>
 			&copy; {new Date().getFullYear()} Created by{' '}
-			<TextColor to={'https://www.nowakart.pl'}>www.nowakart.pl 🪼</TextColor>
+			<TextColor to={'https://www.nowakart.pl'} target='_blank' rel='noreferrer noopener'>www.nowakart.pl 🪼</TextColor>
 		</FooterStyled>
 	);
 }

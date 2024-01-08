@@ -278,8 +278,10 @@ const getUserReviews = async (req, res) => {
 
 		console.log('user' + user);
 		const filteredReviews = user.reviews.map((review) => ({
+
 			id: review._id,
 			userId: user._id,
+			userName: user.name,
 			amountReviews: user.reviews.length,
 			bookInfo: review.bookInfo,
 			contentReview: review.contentReview,

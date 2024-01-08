@@ -49,6 +49,10 @@ const TopThreeLiList = styled.li`
 	}
 `;
 
+const StyledBoxLinkStar = styled.div`
+	margin-top: auto;
+`;
+
 const TopThreeBooksListItem = ({ book, index }) => {
 	return (
 		<TopThreeLiList>
@@ -75,17 +79,21 @@ const TopThreeBooksListItem = ({ book, index }) => {
 			<TextBox style={{ justifyContent: 'start' }}>
 				<BookTitle>{book?.title}</BookTitle>
 				<BookAuthor>{book?.author}</BookAuthor>
-				<StarRating
-					defaultRating={book?.rating}
-					reviews={true}
-					toFixed={true}
-					color='var(--accent-150)'
-					size='20'
-					maxRating='6'
-				></StarRating>
-				<AmountReview>
-					{book?.numOfReviews <= 0 ? 'Napisz recenzję!' : `Ilość recenzji: [${book?.numOfReviews}] `}
-				</AmountReview>
+				<StyledBoxLinkStar>
+					<Link to={`/books/${book._id}`}>
+						<StarRating
+							defaultRating={book?.rating}
+							reviews={true}
+							toFixed={true}
+							color='var(--accent-150)'
+							size='20'
+							maxRating='6'
+						></StarRating>
+						<AmountReview>
+							{book?.numOfReviews <= 0 ? 'Napisz recenzję!' : `Ilość recenzji: [${book?.numOfReviews}] `}
+						</AmountReview>
+					</Link>
+				</StyledBoxLinkStar>
 				<DataPublished>{book?.publishedDate}</DataPublished>
 			</TextBox>
 		</TopThreeLiList>

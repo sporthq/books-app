@@ -93,14 +93,18 @@ const UserProfile = () => {
 	const pageIsTooLarge = page > Math.ceil(reviews[0]?.amountReviews / PAGE_SIZE_USER_REVIEW);
 
 	console.log(reviews);
+
 	return (
 		<div>
-			<Heading as='h2'>Twoje recenzje</Heading>
+			<Heading as='h2'>
+				{' '}
+				{user?._id === reviews[0]?.userId ? 'Twoje recenzje' : 'Recenzje ' + reviews[0]?.userName}
+			</Heading>
 			<BackToHome />
 			<ReviewsUserList>
 				{reviews?.map((review) => {
 					const { id, bookInfo, contentReview, rating } = review;
-					if (bookInfo === null) return <p>Książka została usunięta  z naszej bazdy danych</p>;
+					if (bookInfo === null) return <p>Książka została usunięta z naszej bazdy danych</p>;
 					const { title, author, image, publishedDate, _id } = bookInfo;
 
 					return (
