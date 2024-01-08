@@ -1,11 +1,10 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import GlobalStyles from '../styles/GlobalStyles';
-
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const EmailVerify = lazy(() => import('./pages/EmailVerify'));
@@ -18,11 +17,11 @@ const UserProfile = lazy(() => import('./pages/UserProfile'));
 const Register = lazy(() => import('./pages/Register'));
 const PageNotFound = lazy(() => import('./pages/PageNotFound'));
 
-
 import AppLayout from './ui/AppLayout';
 import SpinnerFullPage from './ui/SpinnerFullPage';
 
 function App() {
+	const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 	const googleClient = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 	const queryClient = new QueryClient({
@@ -33,6 +32,17 @@ function App() {
 		},
 	});
 
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(window.innerWidth < 768);
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, [isMobile]);
 	return (
 		<GoogleOAuthProvider clientId={googleClient}>
 			<QueryClientProvider client={queryClient}>
@@ -58,7 +68,7 @@ function App() {
 					</Suspense>
 				</Router>
 				<Toaster
-					position={window.innerWidth < 768 ? 'bottom-center' : 'top-center'}
+					position={isMobile ? 'bottom-center' : 'top-center'}
 					gutter={12}
 					containerStyle={{ margin: '8px' }}
 					toastOptions={{
@@ -69,7 +79,7 @@ function App() {
 							duration: 5000,
 						},
 						style: {
-							fontSize: '16px',
+							fontSize: isMobile ? '13px' : '16px',
 							maxWidth: '500px',
 							padding: '16px 24px',
 							color: 'var(--accent-150)',
