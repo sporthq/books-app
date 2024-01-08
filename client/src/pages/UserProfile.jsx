@@ -92,8 +92,7 @@ const UserProfile = () => {
 	if (error) return <p>{error.message}</p>;
 	const pageIsTooLarge = page > Math.ceil(reviews[0]?.amountReviews / PAGE_SIZE_USER_REVIEW);
 
-	console.log(reviews);
-
+	
 	return (
 		<div>
 			<Heading as='h2'>

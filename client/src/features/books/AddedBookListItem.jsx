@@ -70,7 +70,7 @@ export default function AddedBookListItem({ book }) {
 				<BookAuthor>{book?.author}</BookAuthor>
 				<StyledBoxLinkStar>
 					<Link to={`/books/${book._id}`}>
-						{console.log(book?.rating)}
+						
 						<StarRating
 							defaultRating={book?.rating}
 							reviews={true}

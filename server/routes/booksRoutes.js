@@ -58,11 +58,11 @@ const addBookToDb = async (req, res) => {
 
 const createBookReview = asyncHandler(async (req, res) => {
 	const { rating, contentReview, id } = req.body;
-	console.log('Otrzymane dane:', { rating, contentReview, id });
+
 
 	const book = await Books.findById(req.params.id);
 	const user = await User.findById(id);
-	console.log('Znaleziono użytkownika:', user);
+	
 
 	// todo odkomentuj to: *user dodaje tylko raz recenzje
 	if (book) {
@@ -83,7 +83,7 @@ const createBookReview = asyncHandler(async (req, res) => {
 			_id: reviewId,
 		};
 
-		console.log('Utworzona recenzja:', review);
+		
 
 		if (review.rating <= 0) {
 			return res.status(400).json({ message: 'Przyznaj ilość ⭐!' });
@@ -94,7 +94,7 @@ const createBookReview = asyncHandler(async (req, res) => {
 
 		// book.reviews.push(review);
 		book.reviews = [...book.reviews, review];
-		console.log('Nowa lista recenzji:', book.reviews.length);
+		
 		book.numOfReviews = book.reviews.length;
 		const totalRating = book.reviews.reduce((acc, item) => item.rating + acc, 0);
 		book.rating = book.numOfReviews > 0 ? totalRating / book.numOfReviews : 0;

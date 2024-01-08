@@ -34,7 +34,7 @@ const FormLogin = () => {
 	function onSubmit(data) {
 		const { email, password } = data;
 
-		console.log(email, password);
+	
 		loginUser({ email, password });
 	}
 	const handleGoogleLogin = useGoogleLogin({
@@ -46,10 +46,9 @@ const FormLogin = () => {
 					})
 					.then((res) => res.data);
 
-				console.log(userInfo);
 
 				const { sub, email, name, picture } = userInfo;
-				console.log(sub, email, name, picture);
+				
 				await googleLogin(sub, email, name, picture);
 				toast.success('Logowanie zakończone pomyślnie');
 				navigate('/');

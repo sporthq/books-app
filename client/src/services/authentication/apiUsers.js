@@ -86,7 +86,7 @@ export const resetPassword = async ({ password, token }) => {
 };
 
 export const googleLogin = async (googleId, email, name, googleImage) => {
-	console.log({ googleId, email, name, googleImage });
+
 	try {
 		const config = { headers: { 'Content-Type': 'application/json' } };
 		const { data } = await axios.post(
@@ -94,7 +94,7 @@ export const googleLogin = async (googleId, email, name, googleImage) => {
 			{ googleId, email, name, googleImage },
 			config
 		);
-		console.log(data);
+	
 		localStorage.removeItem('userInfo');
 		localStorage.setItem('userInfo', JSON.stringify(data));
 		return data;

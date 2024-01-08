@@ -192,7 +192,7 @@ export default function UserPanel() {
 	const ref = useRef();
 	const mobileRef = useRef(null);
 
-	console.log(showMenuMobile);
+	
 	const { logout } = useLogout();
 	function handlerLogout() {
 		logout();

@@ -97,6 +97,12 @@ const GlobalStyles = styled.createGlobalStyle`
 			/* max-width: 83rem; */
 		}
 	}
+	// 576px
+	@media only screen and (max-width: 64em) {
+		body {
+			padding: 0 1.8rem;
+		}
+	}
 
 	input,
 	button,

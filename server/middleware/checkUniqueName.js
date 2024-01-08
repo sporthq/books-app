@@ -1,7 +1,7 @@
 export const checkUniqueName = async (req, res, next) => {
 	const { loginMethod } = req.body;
 
-    console.log(loginMethod);
+
 	if (loginMethod !== 'google') {
 		const { name } = req.body;
 

@@ -223,7 +223,7 @@ const googleLogin = asyncHandler(async (req, res) => {
 
 		if (user) {
 			user.firstLogin = false;
-			console.log('IF uesr existi' + user);
+		
 			await user.save();
 			res.json({
 				_id: user._id,
@@ -238,7 +238,7 @@ const googleLogin = asyncHandler(async (req, res) => {
 				createdAt: user.createdAt,
 			});
 		} else {
-			console.log('eqwqweuiqwuieqwue');
+			
 			const newUser = await User.create({
 				googleId,
 				email,
@@ -276,7 +276,7 @@ const getUserReviews = async (req, res) => {
 			res.status(404).json({ message: 'Użytkownik nie znaleziony.' });
 		}
 
-		console.log('user' + user);
+	
 		const filteredReviews = user.reviews.map((review) => ({
 
 			id: review._id,
@@ -325,19 +325,7 @@ const deleteReview = async (req, res) => {
 	}
 };
 
-// 	const { email } = req.body;
-// 	console.log(email);
 
-// 	try {
-// 		const dbUser = await User.findOne({ email });
-
-// 		console.log(dbUser);
-// 		res.json(!!dbUser);
-// 	} catch (error) {
-// 		console.log(error);
-// 		res.status(500).json({ message: 'Internal server error' });
-// 	}
-// };
 userRoute.route('/login').post(login);
 userRoute.route('/register').post(registerUser);
 userRoute.route('/verify-email/:token').get(verifyEmail);

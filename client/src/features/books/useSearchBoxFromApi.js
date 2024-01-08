@@ -26,7 +26,7 @@ export default function useSearchBoxFromApi(query) {
 			setError('');
 			setLoading(false);
 		} catch (error) {
-			console.log(error.name);
+			
 			if (error.name !== 'CanceledError' || error.name !== 'AbortError') {
 				setError(error.message);
 			}

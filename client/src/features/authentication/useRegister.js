@@ -12,7 +12,7 @@ export default function useRegister() {
 	} = useMutation({
 		mutationFn: ({ name, email, password }) => register({ name, email, password }),
 		onSuccess: (user) => {
-			console.log(user);
+			
 			toast.success('Konto zostało utworzone, sprawdź swoją pocztę bo dokończyć rejestrację.');
 			queryClient.setQueryData(['user'], () => user.user);
 		},

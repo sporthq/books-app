@@ -34,16 +34,16 @@ const RegisterForm = () => {
 	const { register, handleSubmit, formState, getValues } = useForm();
 
 	const { errors } = formState;
-	console.log(errors);
+
 
 	function onSubmit(data) {
 		const { name, email, password } = data;
 
-		console.log(name);
+		
 		registerUser({ name, email, password });
 	}
 	function onError(err) {
-		console.log(err);
+		
 	}
 
 	return (

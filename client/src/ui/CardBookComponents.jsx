@@ -57,6 +57,7 @@ const DataPublished = styled.p`
 	align-self: start;
 	margin-top: auto;
 	font-size: 1.4rem;
+	color: var(--text-200);
 `;
 const AmountReview = styled.p`
 	padding: 0.45rem 0;
