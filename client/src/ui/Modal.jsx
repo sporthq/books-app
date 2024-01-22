@@ -51,6 +51,7 @@ const Button = styled.button`
 		/* fill: var(--color-grey-500);
     stroke: var(--color-grey-500); */
 		color: var(--color-grey-500);
+		color: var(--bg-200)
 	}
 `;
 
