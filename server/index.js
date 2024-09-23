@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import connectToDB from './db.js';
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
+import connectToDB from './db.js';
 
 // routes
 import booksRoutes from './routes/booksRoutes.js';
@@ -12,7 +12,6 @@ connectToDB();
 const app = express();
 app.use(express.json());
 app.use(cors());
-
 
 app.use('/api/books', booksRoutes);
 app.use('/api/users', userRoutes);
@@ -39,4 +38,4 @@ app.listen(port, () => {
 	console.log(`Server run on port ${port}`);
 });
 
-module.exports = app
+export default app;
